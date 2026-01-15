@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const stores = [
+  {
+    name: "Simply Blessed N' More Gift Shoppe",
+    type: "Gift shop",
+    city: "Camden, ME",
+    address: "56 Elm St, Camden, ME 04843",
+    phone: "(207) 706-9549",
+    phoneHref: "tel:+12077069549",
+    mapsHref: "https://www.google.com/maps/search/?api=1&query=Simply%20Blessed%20N'%20More%20Gift%20Shoppe%2056%20Elm%20St%20Camden%20ME%2004843",
+    primary: true,
+  },
+  {
+    name: "Good Things Thrift & Craft Shop",
+    type: "Thrift & craft shop",
+    city: "Waldoboro, ME",
+    address: "14 Washington Rd, Waldoboro, ME 04572",
+    phone: "(207) 790-8126",
+    phoneHref: "tel:+12077908126",
+    mapsHref: "https://www.google.com/maps/search/?api=1&query=Good%20Things%20Thrift%20%26%20Craft%20Shop%2014%20Washington%20Rd%20Waldoboro%20ME%2004572",
+    primary: false,
+  },
+];
+
+const products = [
+  {
+    name: "Soothing Skin Salve",
+    price: "$12",
+    img: "/images/soothing-skin-salve.jpg",
+    alt: "Soothing Skin Salve",
+    blurb: "A simple, soothing staple for dry skin days.",
+  },
+  {
+    name: "Magnesium Spray",
+    price: "$18",
+    img: "/images/magnesium-spray.jpg",
+    alt: "Magnesium Spray",
+    blurb: "A gentle spray for wind-down routines and tender muscles.",
+  },
+  {
+    name: "Vanilla Lip Balm",
+    price: "$6",
+    img: "/images/vanilla-lip-balm.jpg",
+    alt: "Vanilla Lip Balm",
+    blurb: "Soft, sweet, everyday comfort for your lips.",
+  },
+];
+---
+
+<BaseLayout title="Shop | Riverside Homestead">
+  <!-- Page Header -->
+  <section class="shopPageHero">
+    <div class="container shopPageHeroInner">
+      <h1 class="shopPageTitle">Shop</h1>
+      <div class="shopPageDash"></div>
+      <p class="shopPageIntro">
+        Riverside Homestead products are currently available in-person at local Maine shops.
+        Online ordering will be added in the future.
+      </p>
+
+      <div class="shopSocials">
+  <a href="https://www.instagram.com/riversidehomesteadmaine" target="_blank">Riverside Homestead Instagram</a>
+  <a href="https://www.facebook.com/profile.php?id=100086259355364" target="_blank">Riverside Homestead Facebook </a>
+</div>
+
+  <!-- Where to Buy -->
+  <section class="whereToBuy">
+    <div class="container">
+      <div class="whereHeader">
+        <h2 class="whereTitle">Where to Buy</h2>
+        <p class="whereSub">Two lovely local shops currently carry Riverside Homestead.</p>
+      </div>
+
+      <div class="buyGrid">
+        {stores.map((s) => (
+          <article class={`buyCard ${s.primary ? "isPrimary" : ""}`}>
+            <div class="buyTop">
+              <h3 class="buyName">{s.name}</h3>
+              {s.primary && <span class="buyBadge">Primary</span>}
+            </div>
+
+            <p class="buyMeta">{s.type} • {s.city}</p>
+            <p class="buyAddr">{s.address}</p>
+
+            <div class="buyActions">
+              <a class="btnGreen" href={s.mapsHref} target="_blank">Get directions</a>
+              <a class="btnBrown" href={s.phoneHref}>Call {s.phone}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Preview -->
+  <section class="shopPreview shopPageProducts">
+    <div class="container shopPreviewInner">
+      <h2 class="shopTitle">Featured Items</h2>
+
+      <p class="shopTagline">A few things you might find in-store.</p>
+
+      <div class="shopCards">
+        {products.map((p) => (
+          <article class="shopCard">
+            <div class="shopImgWrap">
+              <img src={p.img} alt={p.alt} />
+            </div>
+
+            <h3 class="shopName">{p.name}</h3>
+            <p class="shopPrice">{p.price}</p>
+            <p class="shopDesc">{p.blurb}</p>
+
+            <div class="shopCardBtns">
+              <a class="btnGreen" href={stores[0].mapsHref} target="_blank">Camden</a>
+              <a class="btnBrown" href={stores[1].mapsHref} target="_blank">Waldoboro</a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p class="shopNote">
+        Inventory changes as items sell — calling ahead is always a good idea.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

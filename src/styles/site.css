@@ -1,0 +1,1659 @@
+/* ===== Fonts ===== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;1,300&display=swap");
+
+/* ===== Theme ===== */
+:root{
+  --cream: #f7f1ea;
+  --paper: rgba(247,243,236,.92);
+  --sage: #a9b3a1;
+  --deepGreen: #3a533f;
+  --brown: #7a563e;
+  --brownDark: #6e4d37;
+  --shadow: rgba(0,0,0,.18);
+  --border: rgba(0,0,0,.12);
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  background: var(--cream);
+  color: rgba(42,42,42,.85);
+  font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Soft paper texture */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(0,0,0,.035), transparent 55%),
+    radial-gradient(1000px 600px at 80% 30%, rgba(0,0,0,.03), transparent 60%),
+    radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,.03), transparent 60%);
+  opacity: .8;
+}
+
+.container{
+  width: min(1100px, calc(100% - 3rem));
+  margin: 0 auto;
+}
+
+a{ color: inherit; }
+img{ max-width: 100%; }
+
+/* ===== Header ===== */
+.siteHeader{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247,243,236,.92);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  backdrop-filter: blur(8px);
+}
+
+.headerInner{
+  padding: 1rem 0;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap: .9rem;
+  text-decoration: none;
+}
+
+.brandLogo{
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.brandTitle{
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--deepGreen);
+  line-height: 1.05;
+}
+
+.brandSub{
+  margin-top: .2rem;
+  font-size: .92rem;
+  font-weight: 300;
+  color: rgba(122,86,62,.78);
+}
+
+.nav{
+  display:flex;
+  gap: 1.1rem;
+  align-items: center;
+}
+
+.nav a{
+  text-decoration: none;
+  color: rgba(42,42,42,.70);
+  padding: .5rem .75rem;
+  border-radius: 999px;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+
+.nav a:hover{
+  background: rgba(58,83,63,.08);
+  color: rgba(42,42,42,.86);
+  transform: translateY(-1px);
+}
+
+.nav a.isActive,
+.nav a[aria-current="page"]{
+  background: rgba(122,86,62,.12);
+  color: rgba(42,42,42,.88);
+}
+
+/* ===== Buttons ===== */
+.btnBrown,
+.btnGreen{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .85rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .01em;
+  border: 1px solid rgba(0,0,0,.12);
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.btnBrown{
+  background: var(--brown);
+  color: rgba(255,255,255,.92);
+}
+
+.btnGreen{
+  background: var(--deepGreen);
+  color: rgba(255,255,255,.92);
+}
+
+.btnBrown:hover,
+.btnGreen:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.btnBrown:active,
+.btnGreen:active{
+  transform: translateY(0px) scale(.98);
+}
+
+/* ===== Dividers ===== */
+.vineDivider{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.vineDivider svg{ display:block; }
+
+/* ===== HERO ===== */
+.hero{
+  position: relative;
+  min-height: 520px;
+  background: url("/images/hero.png") center/cover no-repeat;
+  border-bottom: 1px solid rgba(0,0,0,.10);
+}
+
+.heroOverlay{
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.22),
+    rgba(0,0,0,.18),
+    rgba(0,0,0,.30)
+  );
+}
+
+.heroInner{
+  position: relative;
+  min-height: 520px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+  padding: 4.2rem 0;
+}
+
+.heroTitle{
+  margin: 0 0 1rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 6vw, 4.6rem);
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+.heroSubtitle{
+  margin: 0 0 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.92);
+  max-width: 56ch;
+  line-height: 1.85;
+  text-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+.heroButtons{
+  display:flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+/* ===== WELCOME ===== */
+.welcome{
+  padding: 5rem 0 5.5rem;
+  background: var(--cream);
+  text-align:center;
+}
+
+.welcomeTitle{
+  margin: 0 0 1.1rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.welcomeVine{
+  margin-bottom: 2rem;
+  color: rgba(58,83,63,.25);
+}
+
+.welcomeText{
+  margin: 0 auto 1.3rem;
+  max-width: 70ch;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(122,86,62,.82);
+}
+
+.welcomeSmall{
+  margin: 1.2rem 0 1.6rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(58,83,63,.65);
+}
+
+/* ===== ROOTS ===== */
+.rootsV2{
+  padding: 5.2rem 0 5.8rem;
+  background: var(--sage);
+  text-align:center;
+  border-top: 1px solid rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.rootsTitle{
+  margin: 0 0 1.3rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: rgba(43,61,47,.92);
+  font-size: 2.55rem;
+  font-weight: 600;
+}
+
+.rootsVine{
+  margin-bottom: 2.3rem;
+  color: rgba(58,83,63,.28);
+}
+
+.rootsCards{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
+  max-width: 1040px;
+  margin: 0 auto 2rem;
+}
+
+.rootsCard{
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 28px;
+  padding: 3rem 2.2rem 2.8rem;
+  box-shadow: 0 18px 36px rgba(0,0,0,.18);
+  text-align:center;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+.rootsCard:hover{
+  transform: translateY(-4px);
+  filter: brightness(1.01);
+  box-shadow: 0 22px 44px rgba(0,0,0,.20);
+}
+
+.rootsCard h3{
+  margin: 0 0 .8rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2.05rem;
+  font-weight: 600;
+}
+
+.rootsRule{
+  height: 2px;
+  width: 65%;
+  margin: 0 auto 1.6rem;
+  background: rgba(58,83,63,.20);
+  border-radius: 999px;
+}
+
+.rootsItalic{
+  margin: 0 0 1.2rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(122,86,62,.78);
+  line-height: 1.8;
+}
+
+.rootsText{
+  margin: 0;
+  font-weight: 300;
+  color: rgba(42,42,42,.65);
+  line-height: 1.9;
+}
+
+.rootsFooter{
+  margin: 1.8rem 0 0;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(42,42,42,.55);
+}
+
+/* ===== From the Journal ===== */
+.journalPreview{
+  position: relative;
+  padding: 5.2rem 0 6rem;
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.journalPreviewInner{
+  position: relative;
+  text-align: center;
+}
+
+.journalTitle{
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--deepGreen);
+  margin: 0 0 1.1rem;
+}
+
+.journalVine{
+  margin-bottom: 1.9rem;
+  color: rgba(58,83,63,.28);
+}
+
+.journalTagline{
+  margin: 0 0 3rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(122,86,62,.82);
+  font-size: 1.15rem;
+}
+
+.journalCards{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.6rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.journalCard{
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 28px;
+  padding: 3.1rem 2.4rem 2.6rem;
+  box-shadow: 0 18px 36px rgba(0,0,0,.18);
+  text-align: center;
+  min-height: 360px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+.journalCard:hover{
+  transform: translateY(-4px);
+  filter: brightness(1.01);
+  box-shadow: 0 22px 44px rgba(0,0,0,.20);
+}
+
+.journalCard h3{
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--deepGreen);
+  margin: 0 0 1rem;
+}
+
+.journalCardDivider{
+  width: 100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 0 0 1.6rem;
+  position: relative;
+}
+
+.journalCardDivider::before{
+  content:"";
+  height: 2px;
+  width: 62%;
+  background: rgba(58,83,63,.20);
+  border-radius: 99px;
+  position:absolute;
+  left: 19%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.miniVine{
+  position: relative;
+  z-index: 1;
+  padding: 0 .8rem;
+  background: rgba(247,243,236,.92);
+  color: rgba(58,83,63,.35);
+  letter-spacing: .25em;
+  font-size: 1.2rem;
+}
+
+.journalCard p{
+  margin: 0 0 1.2rem;
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(122,86,62,.86);
+  max-width: 34ch;
+}
+
+.journalLink{
+  margin-top: auto;
+  font-weight: 600;
+  color: rgba(122,86,62,.92);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.journalLink:hover{
+  color: rgba(110,77,55,.98);
+}
+
+/* ===== Shop Preview ===== */
+.shopPreview{
+  padding: 5.2rem 0 6.2rem;
+  background: var(--cream);
+}
+
+.shopPreviewInner{
+  text-align: center;
+}
+
+.shopTitle{
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--deepGreen);
+  margin: 0 0 1.1rem;
+}
+
+.shopVine{
+  margin-bottom: 1.9rem;
+  color: rgba(58,83,63,.28);
+}
+
+.shopTagline{
+  margin: 0 0 3rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(122,86,62,.82);
+  font-size: 1.15rem;
+}
+
+.shopCards{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
+  max-width: 1040px;
+  margin: 0 auto 2.6rem;
+  align-items: stretch;
+}
+
+.shopCard{
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 28px;
+  box-shadow: 0 18px 36px rgba(0,0,0,.18);
+  text-align:center;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  min-height: 560px;
+  padding: 1.4rem 1.6rem 1.9rem;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+.shopCard:hover{
+  transform: translateY(-4px);
+  filter: brightness(1.01);
+  box-shadow: 0 22px 44px rgba(0,0,0,.20);
+}
+
+.shopImgWrap{
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.35);
+  aspect-ratio: 4 / 5;
+  margin-bottom: 1.35rem;
+  box-shadow: 0 12px 24px rgba(0,0,0,.12);
+}
+
+.shopImgWrap img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.03);
+}
+
+.shopName{
+  margin: .2rem 0 .6rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.shopPrice{
+  margin: 0 0 1.35rem;
+  font-weight: 600;
+  color: rgba(122,86,62,.92);
+  font-size: 1.15rem;
+}
+
+.shopLink{
+  margin-top: auto;
+  font-weight: 600;
+  color: rgba(122,86,62,.92);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.shopLink:hover{
+  color: rgba(110,77,55,.98);
+}
+
+.shopCta{
+  margin-top: .6rem;
+}
+
+/* ===== Contact Section (NOT footer) ===== */
+.contactSection{
+  padding: 6rem 0;
+  background: var(--cream);
+}
+
+.contactGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 1040px;
+}
+
+.contactCard{
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 28px;
+  padding: 2.4rem 2.2rem;
+  box-shadow: 0 18px 36px rgba(0,0,0,.14);
+}
+
+.contactCard h2{
+  margin: 0 0 .9rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2.1rem;
+  font-weight: 600;
+}
+
+.contactCard p{
+  margin: 0 0 1.2rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(122,86,62,.86);
+}
+
+.contactCard ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:.65rem;
+  color: rgba(42,42,42,.72);
+}
+
+.contactCard a{
+  color: rgba(122,86,62,.92);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.contactForm{
+  display:flex;
+  gap:.8rem;
+  margin-top:.6rem;
+  align-items:center;
+}
+
+.contactForm input{
+  flex: 1;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.6);
+  padding: 0 1rem;
+  font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  color: rgba(42,42,42,.86);
+  outline: none;
+}
+
+.contactForm input:focus{
+  box-shadow: 0 0 0 4px rgba(58,83,63,.12);
+}
+
+.contactFine{
+  margin: .9rem 0 0;
+  font-size: .92rem;
+  font-weight: 300;
+  color: rgba(42,42,42,.55);
+  line-height: 1.7;
+}
+
+.srOnly{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+/* ===== ABOUT PAGE — screenshot match ===== */
+.aboutHero{
+  background: var(--cream);
+  padding: 4.6rem 0 4.2rem;
+}
+
+.aboutHeroInner{
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.aboutTitle{
+  margin: 0 0 1rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  color: var(--deepGreen);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+}
+
+.aboutDash{
+  width: min(620px, 86%);
+  margin: 1rem auto 2rem;
+  border-bottom: 3px dotted rgba(122,86,62,.55);
+}
+
+.aboutIntro{
+  max-width: 72ch;
+  margin: 0 auto;
+}
+
+.aboutIntro p{
+  margin: 0 0 1.6rem;
+  color: rgba(122,86,62,.85);
+  font-weight: 300;
+  line-height: 2.05;
+  font-size: 1.02rem;
+}
+
+.journeyBand{
+  background: #d5b989;
+  padding: 5rem 0;
+}
+
+.journeyGrid{
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 3.2rem;
+  align-items: start;
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+.journeyTitle{
+  grid-column: 1 / -1;
+  text-align: center;
+  margin: 0 0 2.2rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  color: var(--deepGreen);
+  font-size: clamp(2.2rem, 3.3vw, 3rem);
+}
+
+.journeyText{
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+.journeyText p{
+  margin: 0 0 1.55rem;
+  color: rgba(58,83,63,.88);
+  font-weight: 300;
+  line-height: 2.05;
+  font-size: 1.02rem;
+}
+
+.journeyPhoto{
+  display: flex;
+  justify-content: center;
+}
+
+.journeyPhoto img{
+  width: 360px;
+  height: 520px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px;
+  border: 2px solid rgba(0,0,0,.18);
+  box-shadow: 0 18px 28px rgba(0,0,0,.26);
+  background: rgba(255,255,255,.25);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  .rootsCards{ grid-template-columns: 1fr; max-width: 640px; }
+  .journalCards{ grid-template-columns: 1fr; }
+  .shopCards{ grid-template-columns: 1fr; max-width: 640px; }
+  .contactGrid{ grid-template-columns: 1fr; }
+
+  .heroInner{ min-height: 500px; }
+
+  .journeyGrid{
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+
+  .journeyPhoto img{
+    width: min(420px, 100%);
+    height: auto;
+    aspect-ratio: 3 / 5;
+  }
+
+  .contactForm{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contactForm .btnGreen{
+    width: 100%;
+  }
+}
+/* =========================
+   ABOUT PAGE UPGRADES
+   ========================= */
+
+.aboutHero{
+  position: relative;
+}
+
+.aboutHero::before{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(900px 520px at 15% 20%, rgba(0,0,0,.04), transparent 60%),
+    radial-gradient(800px 500px at 85% 25%, rgba(0,0,0,.03), transparent 60%),
+    radial-gradient(900px 650px at 50% 100%, rgba(0,0,0,.025), transparent 60%);
+  opacity:.7;
+  pointer-events:none;
+}
+
+.aboutHeroInner{
+  position: relative;
+}
+
+.aboutPanel{
+  margin: 0 auto;
+  max-width: 740px;
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 28px;
+  padding: 2.2rem 2rem;
+  box-shadow: 0 18px 36px rgba(0,0,0,.14);
+}
+
+.aboutLead{
+  margin: 0 0 1.3rem;
+  color: rgba(122,86,62,.86);
+  font-weight: 300;
+  line-height: 2.0;
+}
+
+.aboutSoftRow{
+  display:flex;
+  gap:.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: .8rem;
+}
+
+.aboutSoftPill{
+  padding: .55rem 1rem;
+  border-radius: 999px;
+  background: rgba(58,83,63,.08);
+  border: 1px solid rgba(0,0,0,.08);
+  color: rgba(58,83,63,.78);
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+/* Values strip */
+.aboutValues{
+  background: var(--cream);
+  padding: 3.6rem 0 4.2rem;
+}
+
+.aboutValuesHeader{
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 2.2rem;
+}
+
+.aboutValuesTitle{
+  margin: 0 0 .5rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.aboutValuesSub{
+  margin: 0;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(122,86,62,.78);
+  line-height: 1.8;
+}
+
+.aboutValuesGrid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.aboutMiniCard{
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 24px;
+  padding: 1.7rem 1.6rem;
+  box-shadow: 0 14px 28px rgba(0,0,0,.12);
+  text-align: center;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.aboutMiniCard:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(0,0,0,.16);
+}
+
+.aboutMiniCard h3{
+  margin: 0 0 .65rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.aboutMiniCard p{
+  margin: 0;
+  font-weight: 300;
+  color: rgba(122,86,62,.85);
+  line-height: 1.9;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .aboutPanel{ padding: 2rem 1.5rem; }
+  .aboutValuesGrid{ grid-template-columns: 1fr; max-width: 640px; }
+}
+/* =========================
+   COZY + SOFT ABOUT (OVERRIDES)
+   paste at VERY BOTTOM
+   ========================= */
+
+.cozyAboutHero{
+  position: relative;
+}
+
+/* warm glow / cozy bloom */
+.cozyAboutHero::before{
+  content:"";
+  position:absolute;
+  inset:-60px;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 20% 20%, rgba(122,86,62,.06), transparent 60%),
+    radial-gradient(900px 520px at 80% 30%, rgba(58,83,63,.045), transparent 60%),
+    radial-gradient(900px 650px at 50% 100%, rgba(0,0,0,.02), transparent 60%);
+  opacity:.9;
+}
+
+.cozyAboutPanel{
+  background: rgba(248,244,239,.95);
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 16px 30px rgba(0,0,0,.12);
+  padding: 2.4rem 2.2rem;
+}
+
+/* slightly softer paragraph feel */
+.cozyAboutPanel .aboutLead{
+  font-size: 1.02rem;
+  line-height: 2.05;
+  color: rgba(122,86,62,.82);
+}
+
+/* Quote strip */
+.aboutQuote{
+  margin: 1.6rem auto 1.2rem;
+  max-width: 60ch;
+  text-align: center;
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: rgba(58,83,63,.06);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+.aboutQuote p{
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: .01em;
+  color: rgba(58,83,63,.78);
+}
+
+/* Cozy pills (linen label vibe) */
+.aboutSoftPill{
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(0,0,0,.07);
+  color: rgba(58,83,63,.72);
+  box-shadow: 0 10px 18px rgba(0,0,0,.06);
+}
+
+/* Values section warmer + softer */
+.cozyValues{
+  padding-top: 3.2rem;
+}
+
+.cozyMiniCard{
+  background: rgba(248,244,239,.92);
+  border: 1px solid rgba(0,0,0,.09);
+  box-shadow: 0 14px 26px rgba(0,0,0,.10);
+}
+
+.cozyMiniCard p{
+  color: rgba(122,86,62,.82);
+  line-height: 1.95;
+}
+
+/* Journey band a bit warmer */
+.cozyJourneyBand{
+  background: #d9c29a; /* slightly warmer tan */
+}
+
+/* Journey text softer */
+.cozyJourneyText p{
+  color: rgba(58,83,63,.84);
+  line-height: 2.05;
+}
+
+/* Photo feels softer */
+.cozyJourneyPhoto img{
+  box-shadow: 0 18px 30px rgba(0,0,0,.20);
+  border: 2px solid rgba(0,0,0,.14);
+}
+
+/* Mobile spacing tweaks */
+@media (max-width: 980px){
+  .cozyAboutPanel{ padding: 2rem 1.5rem; }
+  .aboutQuote{ padding: .95rem 1rem; }
+}
+/* =========================
+   SHOP PAGE (Where to Buy)
+   paste at VERY BOTTOM
+   ========================= */
+
+.shopPageHero{
+  padding: 4.6rem 0 3.8rem;
+  background: var(--cream);
+}
+
+.shopPageHeroInner{
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.shopPageTitle{
+  margin: 0 0 1rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  color: var(--deepGreen);
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+}
+
+.shopPageDash{
+  width: min(640px, 86%);
+  margin: 1rem auto 1.8rem;
+  border-bottom: 3px dotted rgba(122,86,62,.55);
+}
+
+.shopPageIntro{
+  margin: 0 auto;
+  max-width: 70ch;
+  color: rgba(122,86,62,.84);
+  font-weight: 300;
+  line-height: 2.0;
+  font-size: 1.02rem;
+}
+
+/* Where to Buy section */
+.whereToBuy{
+  padding: 0 0 4.8rem;
+  background: var(--cream);
+}
+
+.whereHeader{
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2.2rem;
+}
+
+.whereTitle{
+  margin: 0 0 .4rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-weight: 600;
+  font-size: 2.3rem;
+}
+
+.whereSub{
+  margin: 0;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(122,86,62,.78);
+  line-height: 1.9;
+}
+
+.buyGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.buyCard{
+  background: rgba(248,244,239,.95);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 28px;
+  padding: 2.2rem 2rem;
+  box-shadow: 0 18px 34px rgba(0,0,0,.14);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.buyCard:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px rgba(0,0,0,.16);
+}
+
+.buyCard.isPrimary{
+  border-color: rgba(58,83,63,.22);
+  box-shadow: 0 22px 44px rgba(0,0,0,.16);
+}
+
+.buyTop{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .5rem;
+}
+
+.buyName{
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 1.95rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.buyBadge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  background: rgba(58,83,63,.10);
+  border: 1px solid rgba(0,0,0,.08);
+  color: rgba(58,83,63,.78);
+  font-weight: 700;
+  font-size: .85rem;
+  white-space: nowrap;
+}
+
+.buyMeta{
+  margin: 0 0 .6rem;
+  color: rgba(122,86,62,.82);
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.buyAddr{
+  margin: 0 0 1.4rem;
+  color: rgba(42,42,42,.68);
+  font-weight: 300;
+  line-height: 1.9;
+}
+
+.buyActions{
+  display:flex;
+  gap: .9rem;
+  flex-wrap: wrap;
+}
+
+/* Product cards on Shop page */
+.shopPageProducts .shopCardBtns{
+  display:flex;
+  gap: .85rem;
+  flex-wrap: wrap;
+  justify-content:center;
+  margin-top: auto;
+}
+
+.shopDesc{
+  margin: 0 0 1.2rem;
+  font-weight: 300;
+  color: rgba(122,86,62,.86);
+  line-height: 1.9;
+  max-width: 34ch;
+}
+
+.shopNote{
+  margin: 2rem auto 0;
+  max-width: 70ch;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(42,42,42,.55);
+  line-height: 1.9;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .buyGrid{ grid-template-columns: 1fr; max-width: 640px; }
+}
+.shopSocials{
+  display:flex;
+  gap:1.2rem;
+  justify-content:center;
+  margin-top:1.2rem;
+}
+
+.shopSocials a{
+  font-weight:600;
+  color: rgba(122,86,62,.9);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.shopSocials a:hover{
+  color: rgba(58,83,63,.9);
+}
+/* =========================
+   JOURNAL PAGE
+   ========================= */
+
+.journalPageHero{
+  padding: 4.8rem 0 4.2rem;
+  background: var(--cream);
+  position: relative;
+}
+
+.journalPageHero::before{
+  content:"";
+  position:absolute;
+  inset:-60px;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 20% 20%, rgba(122,86,62,.06), transparent 60%),
+    radial-gradient(900px 520px at 80% 30%, rgba(58,83,63,.045), transparent 60%),
+    radial-gradient(900px 650px at 50% 100%, rgba(0,0,0,.02), transparent 60%);
+  opacity:.9;
+}
+
+.journalPageHeroInner{
+  position: relative;
+  text-align:center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.journalPageTitle{
+  margin: 0 0 1rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  color: var(--deepGreen);
+  font-size: clamp(2.6rem, 4vw, 3.5rem);
+}
+
+.journalPageDash{
+  width: min(640px, 86%);
+  margin: 1rem auto 1.8rem;
+  border-bottom: 3px dotted rgba(122,86,62,.55);
+}
+
+.journalPageIntro{
+  margin: 0 auto 1.8rem;
+  max-width: 72ch;
+  color: rgba(122,86,62,.84);
+  font-weight: 300;
+  line-height: 2.0;
+  font-size: 1.02rem;
+}
+
+.journalPageCtas{
+  display:flex;
+  gap: 1rem;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+
+.journalSectionTitle{
+  margin: 0 0 1.1rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  color: var(--deepGreen);
+  text-align:center;
+  font-size: 2.4rem;
+}
+
+.journalSectionVine{
+  margin-bottom: 2rem;
+  color: rgba(58,83,63,.25);
+}
+
+/* Topics */
+.journalTopics{
+  padding: 0 0 4.6rem;
+  background: var(--cream);
+}
+
+.journalTopicGrid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.journalTopicCard{
+  display:block;
+  text-decoration: none;
+  background: rgba(248,244,239,.95);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 28px;
+  padding: 2.2rem 2rem;
+  box-shadow: 0 18px 34px rgba(0,0,0,.14);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.journalTopicCard:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px rgba(0,0,0,.16);
+}
+
+.journalTopicCard h3{
+  margin: 0 0 .8rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.journalTopicCard p{
+  margin: 0 0 1.4rem;
+  color: rgba(122,86,62,.84);
+  font-weight: 300;
+  line-height: 2.0;
+  max-width: 52ch;
+}
+
+.journalTopicLink{
+  font-weight: 700;
+  color: rgba(58,83,63,.80);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* Latest */
+.journalLatest{
+  padding: 5rem 0 5.6rem;
+  background: var(--sage);
+  border-top: 1px solid rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.journalLatestInner{
+  text-align:center;
+}
+
+.journalLatestSub{
+  margin: 0 auto 2.6rem;
+  max-width: 78ch;
+  color: rgba(58,83,63,.78);
+  font-weight: 300;
+  line-height: 2.0;
+  font-style: italic;
+}
+
+.journalPostGrid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.journalPostCard{
+  background: rgba(248,244,239,.95);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 28px;
+  padding: 2rem 2rem 1.8rem;
+  box-shadow: 0 18px 34px rgba(0,0,0,.14);
+  transition: transform .18s ease, box-shadow .18s ease;
+  display:flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.journalPostCard:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px rgba(0,0,0,.16);
+}
+
+.journalPostMeta{
+  display:flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items:center;
+  margin-bottom: 1rem;
+}
+
+.journalTag{
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  background: rgba(58,83,63,.10);
+  border: 1px solid rgba(0,0,0,.08);
+  color: rgba(58,83,63,.78);
+  font-weight: 700;
+  font-size: .86rem;
+}
+
+.journalDate{
+  color: rgba(122,86,62,.75);
+  font-weight: 300;
+}
+
+.journalPostTitle{
+  margin: 0 0 .9rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.journalPostExcerpt{
+  margin: 0 0 1.3rem;
+  color: rgba(122,86,62,.84);
+  font-weight: 300;
+  line-height: 2.0;
+  max-width: 52ch;
+}
+
+.journalReadMore{
+  margin-top: auto;
+  font-weight: 700;
+  color: rgba(122,86,62,.92);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.journalReadMore:hover{
+  color: rgba(58,83,63,.86);
+}
+
+/* Cozy note */
+.journalNote{
+  padding: 3.2rem 0 4.2rem;
+  background: var(--cream);
+}
+
+.journalNoteInner{
+  max-width: 800px;
+  margin: 0 auto;
+  text-align:center;
+  background: rgba(248,244,239,.92);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 22px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 14px 26px rgba(0,0,0,.10);
+}
+
+.journalNoteInner p{
+  margin: 0;
+  color: rgba(122,86,62,.82);
+  font-weight: 300;
+  line-height: 2.0;
+}
+
+.journalNoteInner a{
+  color: rgba(58,83,63,.82);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .journalTopicGrid{ grid-template-columns: 1fr; max-width: 640px; }
+  .journalPostGrid{ grid-template-columns: 1fr; max-width: 640px; }
+}
+/* =========================
+   JOURNAL (NO PLACEHOLDERS, ONE FEED)
+   ========================= */
+
+.journalHeroClean{
+  padding-bottom: 3.6rem;
+}
+
+.journalFeed{
+  padding: 4.8rem 0 6rem;
+  background: var(--cream);
+}
+
+.journalFeedInner{
+  text-align: center;
+}
+
+.journalEmptyCard{
+  margin: 0 auto;
+  max-width: 860px;
+  background: rgba(248,244,239,.95);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 28px;
+  padding: 2.6rem 2.2rem 2.2rem;
+  box-shadow: 0 18px 34px rgba(0,0,0,.14);
+  position: relative;
+  overflow: hidden;
+}
+
+.journalEmptyCard::before{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(850px 520px at 20% 25%, rgba(122,86,62,.06), transparent 60%),
+    radial-gradient(850px 520px at 80% 35%, rgba(58,83,63,.045), transparent 60%);
+  opacity:.9;
+  pointer-events:none;
+}
+
+.journalEmptyCard h3{
+  position: relative;
+  margin: 0 0 .9rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.journalEmptyCard p{
+  position: relative;
+  margin: 0 auto 1.4rem;
+  max-width: 70ch;
+  color: rgba(122,86,62,.84);
+  font-weight: 300;
+  line-height: 2.0;
+  font-size: 1.02rem;
+}
+
+.journalEmptyBtns{
+  position: relative;
+  display:flex;
+  gap: 1rem;
+  justify-content:center;
+  flex-wrap: wrap;
+  margin-top: .4rem;
+}
+
+.journalFine{
+  position: relative;
+  margin: 1.3rem auto 0;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(42,42,42,.55);
+  line-height: 1.9;
+  max-width: 72ch;
+}
+
+@media (max-width: 980px){
+  .journalEmptyCard{ padding: 2.2rem 1.5rem 2rem; }
+}
+/* ===== Journal controls (search + sort) ===== */
+.journalControls{
+  display:flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1.2rem auto 1rem;
+}
+
+.journalSearchWrap{ width: min(520px, 100%); }
+.journalSearch{
+  width: 100%;
+  height: 50px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.55);
+  padding: 0 1.1rem;
+  font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  color: rgba(42,42,42,.86);
+  outline: none;
+}
+.journalSearch:focus{ box-shadow: 0 0 0 4px rgba(58,83,63,.12); }
+
+.journalSortWrap{ width: min(220px, 100%); }
+.journalSort{
+  width: 100%;
+  height: 50px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.55);
+  padding: 0 1rem;
+  font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  color: rgba(42,42,42,.86);
+  outline: none;
+}
+
+.journalCount{
+  margin: 0 auto 1.8rem;
+  color: rgba(42,42,42,.58);
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* grid for entries */
+.journalCardsGrid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.journalEntryCard{
+  background: rgba(248,244,239,.95);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 28px;
+  padding: 2rem 2rem 1.8rem;
+  box-shadow: 0 18px 34px rgba(0,0,0,.14);
+  transition: transform .18s ease, box-shadow .18s ease;
+  display:flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.journalEntryCard:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px rgba(0,0,0,.16);
+}
+
+.journalEntryMeta{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  margin-bottom: .9rem;
+}
+
+.journalEntryDate{
+  color: rgba(122,86,62,.75);
+  font-weight: 300;
+}
+
+.journalEntryTitle{
+  margin: 0 0 .8rem;
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.journalEntrySummary{
+  margin: 0 0 1.2rem;
+  color: rgba(122,86,62,.84);
+  font-weight: 300;
+  line-height: 2.0;
+}
+
+@media (max-width: 980px){
+  .journalCardsGrid{ grid-template-columns: 1fr; max-width: 640px; }
+}
+.journalSearch:disabled,
+.journalSort:disabled{
+  opacity: .75;
+  cursor: not-allowed;
+}

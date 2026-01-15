@@ -1,0 +1,69 @@
+---
+import "../styles/site.css";
+
+const {
+  title = "Riverside Homestead",
+  description = "Handmade goods, healing journeys, and a life rooted in intention.",
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+
+const nav = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Journal", href: "/journal" },
+  { label: "Shop", href: "/shop" },
+];
+
+const isActive = (href) => {
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+
+  <body>
+    <header class="siteHeader">
+      <div class="container headerInner">
+        <a class="brand" href="/" aria-label="Riverside Homestead home">
+          <img
+            class="brandLogo"
+            src="/images/logo.png"
+            alt="Riverside Homestead logo"
+          />
+
+          <div class="brandText">
+            <div class="brandTitle">Riverside Homestead</div>
+            <div class="brandSub">
+              Handmade goods, healing journeys, and a life rooted in intention.
+            </div>
+          </div>
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+          {nav.map((item) => (
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              class={isActive(item.href) ? "isActive" : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

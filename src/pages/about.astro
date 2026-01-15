@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About | Riverside Homestead">
+  <!-- ABOUT INTRO -->
+  <section class="aboutHero cozyAboutHero">
+    <div class="container aboutHeroInner">
+      <h1 class="aboutTitle">About Riverside Homestead</h1>
+      <div class="aboutDash" aria-hidden="true"></div>
+
+      <div class="aboutPanel cozyAboutPanel">
+        <p class="aboutLead">
+          Riverside Homestead began as a quiet place for slowing down — learning how to live
+          with intention, and how to treat healing like something gentle instead of urgent.
+        </p>
+
+        <p class="aboutLead">
+          What started as a personal journey slowly became something I wanted to share:
+          handmade creations, honest reflections, and a life rooted in care.
+        </p>
+
+        <div class="aboutQuote">
+          <p>Made slowly. Rooted deeply. Shared gently.</p>
+        </div>
+
+        <div class="aboutSoftRow">
+          <div class="aboutSoftPill">🌿 slow living</div>
+          <div class="aboutSoftPill">🪴 handmade care</div>
+          <div class="aboutSoftPill">✨ gentle becoming</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES (cozy mini cards) -->
+  <section class="aboutValues cozyValues">
+    <div class="container">
+      <div class="aboutValuesHeader">
+        <h2 class="aboutValuesTitle">What we’re rooted in</h2>
+        <p class="aboutValuesSub">The quiet things that shape everything here.</p>
+      </div>
+
+      <div class="aboutValuesGrid">
+        <article class="aboutMiniCard cozyMiniCard">
+          <h3>Handmade</h3>
+          <p>Made slowly, thoughtfully, and with real attention to detail.</p>
+        </article>
+
+        <article class="aboutMiniCard cozyMiniCard">
+          <h3>Healing</h3>
+          <p>A space built around growth, patience, and learning to soften.</p>
+        </article>
+
+        <article class="aboutMiniCard cozyMiniCard">
+          <h3>Home</h3>
+          <p>Comfort, grounding, and a life that feels good to live in.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MY JOURNEY -->
+  <section class="journeyBand cozyJourneyBand">
+    <div class="container journeyGrid">
+      <h2 class="journeyTitle">My Journey</h2>
+
+      <div class="journeyText cozyJourneyText">
+        <p>
+          My journey has been about learning how to listen to my body, my intuition,
+          and the natural rhythms of my life.
+        </p>
+        <p>
+          Through movement, reflection, and time spent reconnecting with myself,
+          I’ve learned that healing isn’t something you force — it’s something you allow.
+        </p>
+        <p>
+          There were seasons of pushing forward, and seasons of learning how to soften.
+          Both taught me important lessons. Both helped shape who I am today.
+        </p>
+        <p>
+          Riverside Homestead is a reflection of that balance — honoring growth while staying rooted,
+          and learning how to live in a way that feels true.
+        </p>
+
+        <a class="btnGreen" href="/journal">Read the Journal</a>
+      </div>
+
+      <div class="journeyPhoto cozyJourneyPhoto">
+        <img src="/images/journey.jpg" alt="The maker of Riverside Homestead" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

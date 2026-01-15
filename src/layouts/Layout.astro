@@ -1,0 +1,53 @@
+---
+const { title = "Riverside Homestead" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="/styles/site.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="siteHeader">
+    <div class="headerInner">
+
+      <a class="brand" href="/">
+        <img
+          src="/images/logo.png"
+          alt="Riverside Homestead logo"
+          class="brandLogo"
+        />
+
+        <div class="brandText">
+          <div class="brandTitle">Riverside Homestead</div>
+          <div class="brandSub">
+            Handmade goods, healing journeys, and a life rooted in intention.
+          </div>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/journal">Journal</a>
+        <a href="/about">About</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <main>
+    <slot />
+  </main>
+
+</body>
+</html>
