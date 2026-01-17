@@ -1,47 +1,58 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+const { title = "Riverside Homestead" } = Astro.props;
 
-// however you're loading posts:
-import { getCollection } from "astro:content";
-const posts = await getCollection("journal");
+// Adds a class on the homepage so we can style the hero differently if needed
+const isHome = Astro.url.pathname === "/";
 ---
 
-<BaseLayout title="Journal">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
 
-  <!-- Blog posts FIRST -->
-  <section class="journalPosts">
+    <!-- IMPORTANT: since your CSS lives in src/styles/site.css, import it like this -->
+    <link rel="icon" href="/favicon.svg" />
+  </head>
 
-    <h1 class="journalTitle">From the Journal</h1>
+  <body class={isHome ? "isHome" : ""}>
+    <!-- Import your CSS from src/ (this is the correct Astro way) -->
+    <style is:global>
+      @import "../styles/site.css";
+    </style>
 
-    {posts.map(post => (
-      <article class="journalPostCard">
-        <h2>
-          <a href={`/journal/${post.slug}/`}>{post.data.title}</a>
-        </h2>
-        <p>{post.data.description}</p>
-      </article>
-    ))}
+    <!-- Header -->
+    <header class="siteHeader">
+      <div class="headerInner">
+        <a class="brand" href="/">
+          <img
+            src="/images/logo.png"
+            alt="Riverside Homestead logo"
+            class="brandLogo"
+            loading="eager"
+          />
 
-  </section>
-
-  <!-- Then the cards -->
-  <section class="journalExtras">
-
-    <div class="journalCard">
-      <h3>Coming Soon</h3>
-      <p>More reflections, stories, and gentle thoughts are on their way.</p>
-    </div>
-
-    <div class="journalCard">
-      <h3>Follow Along</h3>
-      <p>
-        See updates on Instagram<br/>
-        <a href="https://instagram.com/riversidehomesteadmaine" target="_blank">
-          @riversidehomesteadmaine
+          <div class="brandText">
+            <div class="brandTitle">Riverside Homestead</div>
+            <div class="brandSub">
+              Handmade goods, healing journeys, and a life rooted in intention.
+            </div>
+          </div>
         </a>
-      </p>
-    </div>
 
-  </section>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="/" class={Astro.url.pathname === "/" ? "active" : ""}>Home</a>
+          <a href="/about" class={Astro.url.pathname.startsWith("/about") ? "active" : ""}>About</a>
+          <a href="/journal" class={Astro.url.pathname.startsWith("/journal") ? "active" : ""}>Journal</a>
+          <a href="/shop" class={Astro.url.pathname.startsWith("/shop") ? "active" : ""}>Shop</a>
+        </nav>
+      </div>
+    </header>
 
-</BaseLayout>
+    <!-- Page content -->
+    <main class="siteMain">
+      <slot />
+    </main>
+  </body>
+</html>

@@ -2458,3 +2458,75 @@ a, button{
     grid-template-columns: 1fr;
   }
 }
+.isHome .backToJournal,
+.isHome .journalBackButton,
+.isHome a[href="/journal"]{
+  display: none !important;
+}
+/* ===== Homepage hero: cream + readable ===== */
+/* This assumes your homepage hero has some kind of overlay container.
+   The selectors below are intentionally flexible so they still work
+   even if your class names are slightly different. */
+
+.isHome .hero,
+.isHome .homeHero,
+.isHome .Hero,
+.isHome .homepageHero {
+  position: relative;
+}
+
+.isHome .hero::before,
+.isHome .homeHero::before,
+.isHome .Hero::before,
+.isHome .homepageHero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* darker soft overlay so text pops without looking harsh */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.20)
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Make sure your hero text sits above the overlay */
+.isHome .hero * ,
+.isHome .homeHero *,
+.isHome .Hero *,
+.isHome .homepageHero * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Titles + subtext cream */
+.isHome h1,
+.isHome .heroTitle,
+.isHome .homeHeroTitle {
+  color: #f6efdf; /* cream */
+  text-shadow: 0 10px 35px rgba(0,0,0,0.55);
+}
+
+.isHome .heroSub,
+.isHome .heroSubtitle,
+.isHome .homeHeroSub,
+.isHome p {
+  color: rgba(246, 239, 223, 0.92);
+  text-shadow: 0 10px 28px rgba(0,0,0,0.45);
+}
+
+/* Buttons: cream text too */
+.isHome .hero a,
+.isHome .hero .button,
+.isHome .homeHero a,
+.isHome .homeHero .button {
+  color: #f6efdf;
+}
+
+/* If your buttons have dark backgrounds, make them feel softer */
+.isHome .hero a,
+.isHome .homeHero a {
+  text-decoration: none;
+}
