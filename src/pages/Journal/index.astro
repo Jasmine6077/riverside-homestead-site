@@ -1,142 +1,47 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const posts = await Astro.glob("./*.md");
-
-const sorted = posts
-  .map((p) => ({
-    url: p.url,
-    title: p.frontmatter.title ?? "Untitled",
-    dateRaw: p.frontmatter.date ?? "",
-    date: p.frontmatter.date ? new Date(p.frontmatter.date) : null,
-    summary: p.frontmatter.summary ?? "",
-    tags: Array.isArray(p.frontmatter.tags) ? p.frontmatter.tags : [],
-  }))
-  .sort((a, b) => {
-    const ad = a.date ? a.date.getTime() : 0;
-    const bd = b.date ? b.date.getTime() : 0;
-    return bd - ad;
-  });
-
-const fmt = (d) =>
-  d
-    ? d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
-    : "";
+// however you're loading posts:
+import { getCollection } from "astro:content";
+const posts = await getCollection("journal");
 ---
 
-<BaseLayout title="Journal | Riverside Homestead">
-  <section class="journalPageHero journalHeroClean">
-    <div class="container journalPageHeroInner">
-      <h1 class="journalPageTitle">Journal</h1>
-      <div class="journalPageDash" aria-hidden="true"></div>
-      <p class="journalPageIntro">
-        Notes, reflections, and little moments—rooted and real.
+<BaseLayout title="Journal">
+
+  <!-- Blog posts FIRST -->
+  <section class="journalPosts">
+
+    <h1 class="journalTitle">From the Journal</h1>
+
+    {posts.map(post => (
+      <article class="journalPostCard">
+        <h2>
+          <a href={`/journal/${post.slug}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.description}</p>
+      </article>
+    ))}
+
+  </section>
+
+  <!-- Then the cards -->
+  <section class="journalExtras">
+
+    <div class="journalCard">
+      <h3>Coming Soon</h3>
+      <p>More reflections, stories, and gentle thoughts are on their way.</p>
+    </div>
+
+    <div class="journalCard">
+      <h3>Follow Along</h3>
+      <p>
+        See updates on Instagram<br/>
+        <a href="https://instagram.com/riversidehomesteadmaine" target="_blank">
+          @riversidehomesteadmaine
+        </a>
       </p>
     </div>
+
   </section>
 
-  <section class="journalControls">
-    <div class="container journalControlsInner">
-      <div class="journalSearchWrap">
-        <label class="srOnly" for="journalSearch">Search journal entries</label>
-        <input
-          id="journalSearch"
-          class="journalSearch"
-          type="search"
-          placeholder="Search entries…"
-          autocomplete="off"
-        />
-      </div>
-
-      <div class="journalSortWrap">
-        <label class="srOnly" for="journalSort">Sort entries</label>
-        <select id="journalSort" class="journalSort">
-          <option value="newest" selected>Newest first</option>
-          <option value="oldest">Oldest first</option>
-        </select>
-      </div>
-    </div>
-  </section>
-
-  <section class="journalFeed">
-    <div class="container journalFeedInner">
-      <div class="masonry" id="journalMasonry">
-        {sorted.map((p) => (
-          <article
-            class="masonryItem journalEntryCard journalPostCard"
-            data-date={p.date ? String(p.date.getTime()) : ""}
-            data-title={p.title}
-            data-summary={p.summary}
-          >
-            <div class="journalEntryMeta">
-              {p.date ? <span class="journalEntryDate">{fmt(p.date)}</span> : <span class="journalEntryDate">—</span>}
-            </div>
-
-            <h3 class="journalEntryTitle">
-              <a class="journalCardTitleLink" href={p.url}>{p.title}</a>
-            </h3>
-
-            {p.summary ? <p class="journalEntrySummary">{p.summary}</p> : null}
-
-            <div class="journalEntryActions">
-              {p.tags?.slice(0, 3).map((t) => <span class="journalPill">{t}</span>)}
-              <a class="journalReadMore" href={p.url}>Read →</a>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="journalEmptyCard" id="journalEmpty" hidden>
-        <h3>Nothing matches that search</h3>
-        <p>Try a different word.</p>
-      </div>
-    </div>
-  </section>
-
-  <script is:inline>
-    const searchEl = document.getElementById("journalSearch");
-    const sortEl = document.getElementById("journalSort");
-    const wrap = document.getElementById("journalMasonry");
-    const empty = document.getElementById("journalEmpty");
-
-    const cards = Array.from(wrap.querySelectorAll(".journalEntryCard"));
-
-    function textOf(card){
-      const t = (card.getAttribute("data-title") || "").toLowerCase();
-      const s = (card.getAttribute("data-summary") || "").toLowerCase();
-      const inner = (card.textContent || "").toLowerCase();
-      return (t + " " + s + " " + inner).trim();
-    }
-
-    function sortCards(){
-      const dir = sortEl.value === "oldest" ? 1 : -1;
-      const visible = cards.filter(c => !c.hidden);
-
-      visible.sort((a,b) => {
-        const ad = Number(a.getAttribute("data-date") || 0);
-        const bd = Number(b.getAttribute("data-date") || 0);
-        return (ad - bd) * dir;
-      });
-
-      for(const c of visible) wrap.appendChild(c);
-    }
-
-    function apply(){
-      const q = (searchEl.value || "").trim().toLowerCase();
-      let visibleCount = 0;
-
-      for(const card of cards){
-        const match = !q || textOf(card).includes(q);
-        card.hidden = !match;
-        if(match) visibleCount++;
-      }
-
-      empty.hidden = visibleCount !== 0;
-      sortCards();
-    }
-
-    searchEl.addEventListener("input", apply);
-    sortEl.addEventListener("change", apply);
-    apply();
-  </script>
 </BaseLayout>
