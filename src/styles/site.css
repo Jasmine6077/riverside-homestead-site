@@ -5,6 +5,11 @@ html, body {
   overflow-x: hidden;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 /* ===== Theme ===== */
 :root{
   --cream: #f7f1ea;
@@ -219,6 +224,39 @@ img{ max-width: 100%; }
   flex-wrap: wrap;
   justify-content:center;
 }
+.hero {
+  position: relative;
+  text-align: center;
+  color: #f6f1e6;
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 0.5rem;
+}
+
+.heroTagline {
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin: 0 auto 1.8rem;
+  opacity: 0.95;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0.5rem;   /* pulls buttons higher */
+}
+
+.heroButtons .btn {
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
 
 /* ===== WELCOME ===== */
 .welcome{
@@ -2124,4 +2162,61 @@ main {
   text-align: center;
   font-weight: 400;
   line-height: 1.4;
+}
+/* =========================================
+   FIX: outer sidebar / double scrollbars
+   ========================================= */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* prevents the extra right-side scroll */
+}
+
+/* If any wrapper used 100vw, it can cause horizontal overflow.
+   This makes sure common wrappers don't exceed the viewport. */
+main, header, .container, .headerInner {
+  max-width: 100%;
+}
+
+/* =========================================
+   HERO: make shorter + buttons closer
+   (adjust class names here if yours differ)
+   ========================================= */
+
+/* If your hero section class is .homeHero, this will work.
+   If it’s named differently, tell me the hero class from index.astro. */
+.Hero {
+  /* shorter hero */
+  min-height: 0 !important;
+  padding-top: 3.25rem !important;
+  padding-bottom: 3.25rem !important;
+}
+
+/* If you have an overlay/inner wrapper controlling height, this helps */
+.HeroInner,
+.heroInner {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Tighten spacing between subtitle and buttons */
+.HeroSubtitle,
+.heroSubtitle {
+  margin-bottom: 0.75rem !important;
+}
+
+/* Move buttons up */
+.HeroButtons,
+.heroButtons,
+.heroCtas {
+  margin-top: 0.5rem !important;
+  gap: 0.75rem !important;
+}
+
+/* If buttons were pushed down by huge padding */
+.HeroButtons a,
+.heroButtons a,
+.heroCtas a {
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
 }

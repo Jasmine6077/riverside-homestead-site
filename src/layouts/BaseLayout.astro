@@ -1,54 +1,66 @@
 ---
 const { title = "Riverside Homestead" } = Astro.props;
+
+// If your CSS file is at: src/styles/site.css
+// This is the correct Astro way to include it (no broken link paths).
+import "../styles/site.css";
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title}</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+  </head>
 
-  <link rel="stylesheet" href="/styles/site.css" />
-</head>
+  <body class="siteBody">
+    <header class="siteHeader">
+      <div class="headerInner">
+        <a class="brand" href="/" aria-label="Riverside Homestead Home">
+          <img
+            src="/images/logo.png"
+            alt="Riverside Homestead logo"
+            class="brandLogo"
+            loading="eager"
+          />
 
-<body>
+          <div class="brandText">
+            <div class="brandTitle">Riverside Homestead</div>
 
-<header class="siteHeader">
-  <div class="headerInner">
+            <!-- Tagline directly under header title (this is the one you wanted) -->
+            <div class="brandSub">
+              Handmade goods, healing journeys, and a life rooted in intention.
+            </div>
+          </div>
+        </a>
 
-    <a href="/" class="brand">
-
-      <img
-        src="/images/logo.png"
-        alt="Riverside Homestead logo"
-        class="brandLogo"
-      />
-
-      <div class="brandText">
-        <div class="brandTitle">Riverside Homestead</div>
-
-        <!-- FIRST TAGLINE INSTANCE -->
-        <div class="brandTagline">
-          Handmade goods, healing journeys, and a life rooted in intention.
-        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="/" class={Astro.url.pathname === "/" ? "active" : ""}>Home</a>
+          <a
+            href="/about"
+            class={Astro.url.pathname.startsWith("/about") ? "active" : ""}
+          >
+            About
+          </a>
+          <a
+            href="/journal"
+            class={Astro.url.pathname.startsWith("/journal") ? "active" : ""}
+          >
+            Journal
+          </a>
+          <a
+            href="/shop"
+            class={Astro.url.pathname.startsWith("/shop") ? "active" : ""}
+          >
+            Shop
+          </a>
+        </nav>
       </div>
+    </header>
 
-    </a>
-
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/journal">Journal</a>
-      <a href="/shop">Shop</a>
-    </nav>
-
-  </div>
-</header>
-
-<main class="siteMain">
-  <slot />
-</main>
-
-</body>
+    <main id="main" class="siteMain">
+      <slot />
+    </main>
+  </body>
 </html>
