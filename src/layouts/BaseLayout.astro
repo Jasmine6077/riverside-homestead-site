@@ -1,58 +1,52 @@
 ---
-const { title = "Riverside Homestead" } = Astro.props;
+import "../styles/site.css";
 
-// Adds a class on the homepage so we can style the hero differently if needed
-const isHome = Astro.url.pathname === "/";
+const { title = "Riverside Homestead" } = Astro.props;
+const path = Astro.url.pathname;
+const isActive = (href) => (href === "/" ? path === "/" : path.startsWith(href));
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+</head>
 
-    <!-- IMPORTANT: since your CSS lives in src/styles/site.css, import it like this -->
-    <link rel="icon" href="/favicon.svg" />
-  </head>
+<body>
+  <!-- Header -->
+  <header class="siteHeader">
+    <div class="headerInner">
+      <a class="brand" href="/">
+        <img
+          src="/images/logo.png"
+          alt="Riverside Homestead logo"
+          class="brandLogo"
+        />
 
-  <body class={isHome ? "isHome" : ""}>
-    <!-- Import your CSS from src/ (this is the correct Astro way) -->
-    <style is:global>
-      @import "../styles/site.css";
-    </style>
+        <div class="brandText">
+          <div class="brandTitle">Riverside Homestead</div>
+        </div>
+      </a>
 
-    <!-- Header -->
-    <header class="siteHeader">
-      <div class="headerInner">
-        <a class="brand" href="/">
-          <img
-            src="/images/logo.png"
-            alt="Riverside Homestead logo"
-            class="brandLogo"
-            loading="eager"
-          />
+      <nav class="nav">
+        <a href="/" class={isActive("/") ? "active" : ""}>Home</a>
+        <a href="/about" class={isActive("/about") ? "active" : ""}>About</a>
+        <a href="/journal" class={isActive("/journal") ? "active" : ""}>Journal</a>
+        <a href="/shop" class={isActive("/shop") ? "active" : ""}>Shop</a>
+      </nav>
+    </div>
 
-          <div class="brandText">
-            <div class="brandTitle">Riverside Homestead</div>
-            <div class="brandSub">
-              Handmade goods, healing journeys, and a life rooted in intention.
-            </div>
-          </div>
-        </a>
+    <!-- subtitle line UNDER header -->
+    <div class="siteSubtitle">
+      Handmade goods, healing journeys, and a life rooted in intention.
+    </div>
+  </header>
 
-        <nav class="nav" aria-label="Primary navigation">
-          <a href="/" class={Astro.url.pathname === "/" ? "active" : ""}>Home</a>
-          <a href="/about" class={Astro.url.pathname.startsWith("/about") ? "active" : ""}>About</a>
-          <a href="/journal" class={Astro.url.pathname.startsWith("/journal") ? "active" : ""}>Journal</a>
-          <a href="/shop" class={Astro.url.pathname.startsWith("/shop") ? "active" : ""}>Shop</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Page content -->
-    <main class="siteMain">
-      <slot />
-    </main>
-  </body>
+  <!-- Main -->
+  <main class="siteMain">
+    <slot />
+  </main>
+</body>
 </html>

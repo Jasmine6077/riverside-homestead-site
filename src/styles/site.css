@@ -2025,3 +2025,29 @@ a, button{
   background: rgba(255,255,255,0.6);
   border: 1px solid rgba(0,0,0,0.08);
 }
+/* ===== Prevent scrolling past end of page ===== */
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+/* ===== Subtitle under header ===== */
+.siteSubtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(120,120,120,0.75);
+  padding: 0.4rem 1rem 0.8rem;
+  font-style: italic;
+}
+
+/* ===== Active nav link ===== */
+.nav a.active {
+  color: var(--green, #3e5f4b);
+  font-weight: 600;
+}
+
+/* ===== Main wrapper ===== */
+.siteMain {
+  width: 100%;
+  overflow-x: hidden;
+}
