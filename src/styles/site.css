@@ -2082,3 +2082,136 @@ a, button{
   .journalPageHero{ padding: 3rem 0 1.6rem; }
   .journalSearch, .journalSort{ height: 50px; }
 }
+/* =========================
+   Cozy Page + Markdown Styles
+   ========================= */
+
+.pageContent{
+  width: min(980px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 2.6rem 0 4.5rem;
+}
+
+/* “paper” card look for long-form pages */
+.pageContent :where(article, .postCard){
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 28px;
+  box-shadow: 0 18px 36px rgba(0,0,0,.12);
+  padding: clamp(1.4rem, 2.6vw, 2.4rem);
+}
+
+/* Markdown typography */
+.pageContent :where(h1,h2,h3){
+  font-family: "Playfair Display", Georgia, serif;
+  color: var(--deepGreen);
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+.pageContent h1{
+  font-size: clamp(2.2rem, 4.8vw, 3rem);
+  margin: 0 0 1rem;
+}
+
+.pageContent h2{
+  font-size: clamp(1.6rem, 3.2vw, 2.15rem);
+  margin: 2.2rem 0 1rem;
+}
+
+.pageContent h3{
+  font-size: 1.45rem;
+  margin: 1.8rem 0 .8rem;
+}
+
+.pageContent p{
+  font-weight: 300;
+  line-height: 1.95;
+  color: rgba(122,86,62,.86);
+  font-size: 1.06rem;
+  margin: 0 0 1.15rem;
+  max-width: 72ch;
+}
+
+/* Links */
+.pageContent a{
+  color: rgba(122,86,62,.92);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.pageContent a:hover{
+  color: rgba(110,77,55,.98);
+}
+
+/* Lists */
+.pageContent ul,
+.pageContent ol{
+  margin: 0 0 1.2rem;
+  padding-left: 1.35rem;
+  color: rgba(122,86,62,.86);
+  line-height: 1.9;
+  font-weight: 300;
+  max-width: 72ch;
+}
+
+.pageContent li{ margin: .35rem 0; }
+
+/* Blockquotes (very cottagecore) */
+.pageContent blockquote{
+  margin: 1.6rem 0;
+  padding: 1.1rem 1.2rem;
+  border-left: 3px solid rgba(58,83,63,.35);
+  background: rgba(255,255,255,.35);
+  border-radius: 18px;
+  color: rgba(58,83,63,.78);
+  font-style: italic;
+  line-height: 1.9;
+}
+
+/* Horizontal rule */
+.pageContent hr{
+  border: none;
+  height: 1px;
+  background: rgba(0,0,0,.10);
+  margin: 2.2rem 0;
+}
+
+/* Images */
+.pageContent img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 14px 28px rgba(0,0,0,.12);
+  margin: 1.6rem 0;
+}
+
+/* Small “post meta” line you can use in posts */
+.postMeta{
+  display:flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items:center;
+  margin: 0 0 1.2rem;
+  color: rgba(58,83,63,.70);
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.postMeta .dot{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(58,83,63,.35);
+}
+
+/* Mobile spacing */
+@media (max-width: 520px){
+  .pageContent{
+    width: min(980px, calc(100% - 2rem));
+    padding: 2.1rem 0 3.6rem;
+  }
+  .pageContent p{
+    font-size: 1.03rem;
+  }
+}
