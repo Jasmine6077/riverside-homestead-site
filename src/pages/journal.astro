@@ -1,8 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getJournalPosts } from "../lib/notion";
 
-const posts = await getJournalPosts();
+/**
+ * This loads all markdown posts from: src/content/journal/*.md
+ * It does NOT require Notion or any API.
+ */
+const modules = import.meta.glob("../content/journal/*.md", { eager: true });
+
+const posts = Object.entries(modules).map(([path, mod]) => {
+  const frontmatter = mod.frontmatter ?? {};
+  const urlSlug = path.split("/").pop()?.replace(".md", "") ?? "";
+
+  return {
+    title: frontmatter.title ?? "Untitled",
+    date: frontmatter.date ?? "",
+    summary: frontmatter.summary ?? "",
+    draft: frontmatter.draft ?? false,
+    slug: urlSlug,
+  };
+});
+
+// Hide drafts
+const published = posts
+  .filter((p) => !p.draft)
+  .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 ---
 
 <BaseLayout title="Journal | Riverside Homestead">
@@ -11,36 +32,47 @@ const posts = await getJournalPosts();
       <h1 class="journalPageTitle">Journal</h1>
       <div class="journalPageDash" aria-hidden="true"></div>
       <p class="journalPageIntro">
-        A living space for updates, reflections, and little moments.
+        Updates, reflections, and small moments — written softly, shared when ready.
       </p>
     </div>
   </section>
 
   <section class="journalFeed">
     <div class="container journalFeedInner">
-
-      {posts.length > 0 ? (
-        <>
-          <div class="journalCardsGrid">
-            {posts.map((p) => (
-              <article class="journalEntryCard">
+      {published.length > 0 ? (
+        <div class="journalCardsGrid">
+          {published.map((p) => (
+            <article class="journalEntryCard">
+              {p.date ? (
                 <div class="journalEntryMeta">
-                  <span class="journalEntryDate">{p.date}</span>
+                  <span class="journalEntryDate">
+                    {new Date(p.date).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
                 </div>
-                <h3 class="journalEntryTitle">{p.title}</h3>
-                <p class="journalEntrySummary">{p.summary}</p>
+              ) : null}
 
-                <a class="journalReadMore" href={`/journal/${p.slug}`}>
-                  Read →
-                </a>
-              </article>
-            ))}
-          </div>
-        </>
+              <h3 class="journalEntryTitle">{p.title}</h3>
+
+              {p.summary ? (
+                <p class="journalEntrySummary">{p.summary}</p>
+              ) : null}
+
+              <a class="journalReadMore" href={`/journal/${p.slug}`}>
+                Read →
+              </a>
+            </article>
+          ))}
+        </div>
       ) : (
         <div class="journalEmptyCard">
           <h3>Nothing here yet</h3>
-          <p>Once your mom checks “Published” on a Notion entry, it will show here.</p>
+          <p>
+            Once you add a post in <code>src/content/journal</code>, it will show up here.
+          </p>
         </div>
       )}
     </div>

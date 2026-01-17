@@ -1,69 +1,69 @@
 ---
-import "../styles/site.css";
-
-const {
-  title = "Riverside Homestead",
-  description = "Handmade goods, healing journeys, and a life rooted in intention.",
-} = Astro.props;
-
-const pathname = Astro.url.pathname;
-
-const nav = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Journal", href: "/journal" },
-  { label: "Shop", href: "/shop" },
-];
-
-const isActive = (href) => {
-  if (href === "/") return pathname === "/";
-  return pathname.startsWith(href);
-};
+const { title = "Riverside Homestead" } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
 
-  <body>
-    <header class="siteHeader">
-      <div class="container headerInner">
-        <a class="brand" href="/" aria-label="Riverside Homestead home">
-          <img
-            class="brandLogo"
-            src="/images/logo.png"
-            alt="Riverside Homestead logo"
-          />
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="/styles/site.css" />
 
-          <div class="brandText">
-            <div class="brandTitle">Riverside Homestead</div>
-            <div class="brandSub">
-              Handmade goods, healing journeys, and a life rooted in intention.
-            </div>
+  <!-- Netlify Identity (for /admin login) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="siteHeader">
+    <div class="headerInner">
+
+      <a class="brand" href="/">
+        <img
+          src="/images/logo.png"
+          alt="Riverside Homestead logo"
+          class="brandLogo"
+        />
+
+        <div class="brandText">
+          <div class="brandTitle">Riverside Homestead</div>
+          <div class="brandSub">
+            Handmade goods, healing journeys, and a life rooted in intention.
           </div>
-        </a>
+        </div>
+      </a>
 
-        <nav class="nav" aria-label="Primary navigation">
-          {nav.map((item) => (
-            <a
-              href={item.href}
-              aria-current={isActive(item.href) ? "page" : undefined}
-              class={isActive(item.href) ? "isActive" : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </header>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/journal">Journal</a>
+        <a href="/about">About</a>
+      </nav>
 
-    <main>
-      <slot />
-    </main>
-  </body>
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- Netlify Identity redirect after login -->
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+
+</body>
 </html>
