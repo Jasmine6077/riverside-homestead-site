@@ -2051,3 +2051,77 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
+/* =========================
+   HERO: tagline + button spacing
+   ========================= */
+
+/* Hero tagline under "Riverside Homestead" */
+.heroTagline {
+  margin: 0.6rem 0 0.9rem;
+  text-align: center;
+  color: var(--cream, #f3ead9);
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.45;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.55);
+  max-width: 34rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Lift the buttons closer to the tagline */
+.homeHeroButtons,
+.heroButtons {
+  margin-top: 0.35rem !important;
+}
+
+/* If you have a gap on the hero container, tighten it */
+.homeHeroInner,
+.heroInner {
+  gap: 0.6rem;
+}
+
+/* =========================
+   FIX: double scrollbars
+   ========================= */
+
+/* Only the page should scroll (not an inner container) */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-y: auto;
+}
+
+/* Kill any accidental "scroll inside a scroll" containers */
+main,
+.siteMain,
+.page,
+.pageWrap,
+.layout,
+.shell,
+.wrapper,
+.container {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* If something is forcing a second scrollbar via 100vh */
+main {
+  min-height: auto !important;
+}
+.brandText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brandTagline {
+  font-size: 0.85rem;
+  color: #8a7c68;
+  margin-top: 0.15rem;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.4;
+}
