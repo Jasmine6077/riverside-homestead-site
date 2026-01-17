@@ -169,94 +169,89 @@ img{ max-width: 100%; }
 .vineDivider svg{ display:block; }
 
 /* ===== HERO ===== */
+/* HERO: controlled height + no weird extra scroll */
 .hero{
   position: relative;
-  min-height: 520px;
-  background: url("/images/hero.png") center/cover no-repeat;
-  border-bottom: 1px solid rgba(0,0,0,.10);
+  width: 100%;
+  /* shorter hero */
+  min-height: 420px;
+  height: clamp(420px, 62vh, 560px);
+  overflow: hidden;
+  border-radius: 0;
 }
 
+/* background image layer */
+.heroMedia{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.02);
+}
+
+/* overlay to help text readability */
 .heroOverlay{
-  position:absolute;
-  inset:0;
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,.22),
-    rgba(0,0,0,.18),
-    rgba(0,0,0,.30)
+    rgba(0,0,0,0.40),
+    rgba(0,0,0,0.10),
+    rgba(0,0,0,0.45)
   );
 }
 
+/* content */
 .heroInner{
   position: relative;
-  min-height: 520px;
-  display:flex;
+  z-index: 2;
+  height: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 52px 18px 26px;
+  display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  text-align:center;
-  padding: 4.2rem 0;
+  text-align: center;
 }
 
 .heroTitle{
-  margin: 0 0 1rem;
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(3rem, 6vw, 4.6rem);
-  letter-spacing: .02em;
-  color: rgba(255,255,255,.92);
-  text-shadow: 0 10px 30px rgba(0,0,0,.45);
+  margin: 0;
+  color: #f6efe3; /* cream */
+  text-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-.heroSubtitle{
-  margin: 0 0 1.8rem;
-  font-size: 1.1rem;
-  font-weight: 300;
-  color: rgba(255,255,255,.92);
-  max-width: 56ch;
-  line-height: 1.85;
-  text-shadow: 0 10px 24px rgba(0,0,0,.35);
-}
-
-.heroButtons{
-  display:flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content:center;
-}
-.hero {
-  position: relative;
-  text-align: center;
-  color: #f6f1e6;
-  padding-top: 6rem;
-  padding-bottom: 5rem;
-}
-
-.hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  margin-bottom: 0.5rem;
-}
-
-.heroTagline {
-  font-size: 1.05rem;
-  max-width: 640px;
-  margin: 0 auto 1.8rem;
+.heroSub{
+  margin: 10px auto 0;
+  max-width: 46ch;
+  color: #f6efe3; /* cream */
   opacity: 0.95;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-.heroButtons {
+/* Buttons closer to subtitle */
+.heroCtas{
+  margin-top: 14px;   /* <-- this is the “closer” */
   display: flex;
-  gap: 1rem;
+  gap: 12px;
   justify-content: center;
-  margin-top: 0.5rem;   /* pulls buttons higher */
+  flex-wrap: wrap;
 }
 
-.heroButtons .btn {
-  padding: 0.9rem 1.6rem;
-  border-radius: 999px;
-  font-weight: 500;
+/* Mobile: even shorter */
+@media (max-width: 640px){
+  .hero{
+    min-height: 360px;
+    height: clamp(360px, 55vh, 460px);
+  }
+  .heroInner{
+    padding: 36px 16px 20px;
+  }
+  .heroCtas{
+    margin-top: 12px;
+  }
 }
-
 
 /* ===== WELCOME ===== */
 .welcome{
@@ -2219,4 +2214,22 @@ main, header, .container, .headerInner {
 .heroCtas a {
   padding-top: 0.9rem;
   padding-bottom: 0.9rem;
+}
+html, body{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  overflow-x: hidden; /* kills sideways scroll */
+}
+
+/* If something is forcing extra bottom space, this helps */
+.siteMain{
+  display: block;
+}
+
+/* Optional: remove accidental bottom spacing if a wrapper exists */
+.siteMain > :last-child{
+  margin-bottom: 0;
 }
