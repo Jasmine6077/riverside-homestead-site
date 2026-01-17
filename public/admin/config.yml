@@ -8,11 +8,9 @@ public_folder: "/images/uploads"
 collections:
   - name: "journal"
     label: "Journal"
-    folder: "src/pages/journal"
+    folder: "src/content/journal"
     create: true
     slug: "{{slug}}"
-    extension: "md"
-    format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
