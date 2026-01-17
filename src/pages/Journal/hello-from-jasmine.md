@@ -11,7 +11,7 @@ tags: ["welcome", "about", "rooted living"]
 
 <p class="postLead"><strong>Hi, I’m Jasmine — the one behind the screen, quietly shaping this space with love, patience, and a lot of late nights.</strong></p>
 
-I’m the one behind the screen, quietly shaping this space with love, patience, and a lot of late nights. This blog is my mom’s voice, her growth, her becoming, and I just get the honor of helping carry it gently into the world.
+This blog is my mom’s voice, her growth, her becoming, and I just get the honor of helping carry it gently into the world.
 
 I’ve watched her learn how to soften without breaking, how to grow without losing herself, and how to find balance in a life that doesn’t always make it easy. I’ve seen her unlearn, relearn, and choose herself again and again, and being close to that kind of growth changes you. It teaches you that healing is not loud or perfect, but slow, human, and deeply brave.
 
