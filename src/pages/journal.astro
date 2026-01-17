@@ -1,22 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
+import { getJournalPosts } from "../lib/notion";
 
-const instagramUrl = "https://www.instagram.com/riversidehomesteadmaine";
-
-const entries = await getCollection("journal");
-const posts = entries
-  .map((e) => ({
-    title: e.data.title,
-    date: e.data.date,
-    dateISO: e.data.date.toISOString().slice(0, 10),
-    summary: e.data.summary ?? "",
-    href: `/journal/${e.slug}/`,
-    tags: e.data.tags ?? [],
-  }))
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
-
-const hasPosts = posts.length > 0;
+const posts = await getJournalPosts();
 ---
 
 <BaseLayout title="Journal | Riverside Homestead">
@@ -24,143 +10,37 @@ const hasPosts = posts.length > 0;
     <div class="container journalPageHeroInner">
       <h1 class="journalPageTitle">Journal</h1>
       <div class="journalPageDash" aria-hidden="true"></div>
-
       <p class="journalPageIntro">
-        A living space for updates, reflections, and little moments — new product drops,
-        behind-the-scenes notes, and slow-life thoughts.
+        A living space for updates, reflections, and little moments.
       </p>
-
-      <div class="journalPageCtas">
-        <a class="btnGreen" href="#entries">Read entries</a>
-        <a class="btnBrown" href={instagramUrl} target="_blank" rel="noopener">Follow on Instagram</a>
-      </div>
     </div>
   </section>
 
-  <section id="entries" class="journalFeed">
+  <section class="journalFeed">
     <div class="container journalFeedInner">
-      <h2 class="journalSectionTitle">All entries</h2>
 
-      <div class="vineDivider journalSectionVine" aria-hidden="true">
-        <svg width="140" height="26" viewBox="0 0 140 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 13H58" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M82 13H134" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M64 13c3-6 9-6 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M64 13c3 6 9 6 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-
-      <!-- Controls ALWAYS visible -->
-      <div class="journalControls">
-        <div class="journalSearchWrap">
-          <label class="srOnly" for="journalSearch">Search entries</label>
-          <input
-            id="journalSearch"
-            class="journalSearch"
-            type="search"
-            placeholder={hasPosts ? "Search entries…" : "Search will appear once entries are posted"}
-            disabled={!hasPosts}
-          />
-        </div>
-
-        <div class="journalSortWrap">
-          <label class="srOnly" for="journalSort">Sort</label>
-          <select id="journalSort" class="journalSort" disabled={!hasPosts}>
-            <option value="new">Newest first</option>
-            <option value="old">Oldest first</option>
-            <option value="az">Title A–Z</option>
-            <option value="za">Title Z–A</option>
-          </select>
-        </div>
-      </div>
-
-      <p class="journalCount" id="journalCount">
-        {hasPosts ? `${posts.length} ${posts.length === 1 ? "entry" : "entries"}` : "0 entries"}
-      </p>
-
-      {hasPosts ? (
+      {posts.length > 0 ? (
         <>
-          <div class="journalCardsGrid" id="journalGrid">
+          <div class="journalCardsGrid">
             {posts.map((p) => (
-              <article
-                class="journalEntryCard"
-                data-title={p.title.toLowerCase()}
-                data-summary={p.summary.toLowerCase()}
-                data-tags={p.tags.join(" ").toLowerCase()}
-                data-date={p.dateISO}
-              >
+              <article class="journalEntryCard">
                 <div class="journalEntryMeta">
-                  <span class="journalEntryDate">
-                    {p.date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-                  </span>
+                  <span class="journalEntryDate">{p.date}</span>
                 </div>
-
                 <h3 class="journalEntryTitle">{p.title}</h3>
-                {p.summary && <p class="journalEntrySummary">{p.summary}</p>}
+                <p class="journalEntrySummary">{p.summary}</p>
 
-                <a class="journalReadMore" href={p.href}>Read →</a>
+                <a class="journalReadMore" href={`/journal/${p.slug}`}>
+                  Read →
+                </a>
               </article>
             ))}
           </div>
-
-          <script>
-            {String.raw`
-              const search = document.getElementById("journalSearch");
-              const sort = document.getElementById("journalSort");
-              const grid = document.getElementById("journalGrid");
-              const count = document.getElementById("journalCount");
-
-              if (search && sort && grid && count) {
-                const cards = Array.from(grid.querySelectorAll(".journalEntryCard"));
-
-                function apply() {
-                  const q = (search.value || "").trim().toLowerCase();
-
-                  const visible = cards.filter(card => {
-                    const hay =
-                      (card.dataset.title || "") + " " +
-                      (card.dataset.summary || "") + " " +
-                      (card.dataset.tags || "");
-                    const ok = !q || hay.includes(q);
-                    card.style.display = ok ? "" : "none";
-                    return ok;
-                  });
-
-                  const mode = sort.value;
-                  const sorted = visible.slice().sort((a, b) => {
-                    const ad = a.dataset.date || "";
-                    const bd = b.dataset.date || "";
-                    const at = a.dataset.title || "";
-                    const bt = b.dataset.title || "";
-                    if (mode === "new") return bd.localeCompare(ad);
-                    if (mode === "old") return ad.localeCompare(bd);
-                    if (mode === "az") return at.localeCompare(bt);
-                    if (mode === "za") return bt.localeCompare(at);
-                    return 0;
-                  });
-
-                  sorted.forEach(el => grid.appendChild(el));
-                  count.textContent = visible.length + (visible.length === 1 ? " entry" : " entries");
-                }
-
-                search.addEventListener("input", apply);
-                sort.addEventListener("change", apply);
-                apply();
-              }
-            `}
-          </script>
         </>
       ) : (
         <div class="journalEmptyCard">
-          <h3>Coming soon</h3>
-          <p>
-            Entries will start appearing here as they’re posted. The search + sort will turn on automatically.
-          </p>
-          <div class="journalEmptyBtns">
-            <a class="btnGreen" href={instagramUrl} target="_blank" rel="noopener">See updates on Instagram</a>
-            <a class="btnBrown" href="/shop">Shop in person</a>
-          </div>
-          <p class="journalFine">This page is ready — it’s just waiting on the first entry.</p>
+          <h3>Nothing here yet</h3>
+          <p>Once your mom checks “Published” on a Notion entry, it will show here.</p>
         </div>
       )}
     </div>
