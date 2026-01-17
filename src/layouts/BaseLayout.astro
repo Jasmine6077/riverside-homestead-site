@@ -1,4 +1,6 @@
 ---
+import "../styles/site.css";
+
 const { title = "Riverside Homestead" } = Astro.props;
 ---
 
@@ -8,17 +10,10 @@ const { title = "Riverside Homestead" } = Astro.props;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
-
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="/styles/site.css" />
-
-  <!-- Netlify Identity (for /admin login) -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body>
 
-  <!-- Header -->
   <header class="siteHeader">
     <div class="headerInner">
 
@@ -47,23 +42,9 @@ const { title = "Riverside Homestead" } = Astro.props;
     </div>
   </header>
 
-  <!-- Page content -->
   <main>
     <slot />
   </main>
-
-  <!-- Netlify Identity redirect after login -->
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 
 </body>
 </html>
