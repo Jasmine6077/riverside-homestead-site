@@ -41,9 +41,11 @@ const { title = "Riverside Homestead" } = Astro.props;
     </div>
   </header>
 
- <main class="siteMain">
+<main class="siteMain">
   <div class="pageContent">
-    <slot />
+    <article class="postPaper">
+      <slot />
+    </article>
   </div>
 </main>
 </body>
