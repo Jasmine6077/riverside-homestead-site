@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Grab all markdown posts in this folder EXCEPT index.md / index.astro
+const allPosts = await Astro.glob("./*.md");
+
+// Sort newest → oldest (based on frontmatter date)
+const posts = allPosts
+  .map((p) => ({
+    url: p.url,
+    title: p.frontmatter.title ?? "Untitled",
+    date: p.frontmatter.date ? new Date(p.frontmatter.date) : null,
+    summary: p.frontmatter.summary ?? "",
+  }))
+  .sort((a, b) => {
+    const ad = a.date ? a.date.getTime() : 0;
+    const bd = b.date ? b.date.getTime() : 0;
+    return bd - ad;
+  });
+
+const fmt = (d) =>
+  d
+    ? d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+    : "";
+---
+
+<BaseLayout title="Journal | Riverside Homestead">
+  <section class="journalPageHero journalHeroClean">
+    <div class="container journalPageHeroInner">
+      <h1 class="journalPageTitle">Journal</h1>
+      <div class="journalPageDash" aria-hidden="true"></div>
+      <p class="journalPageIntro">
+        A living space for updates, reflections, and little moments.
+      </p>
+    </div>
+  </section>
+
+  <section class="journalFeed">
+    <div class="container journalFeedInner">
+      {posts.length > 0 ? (
+        <div class="journalCardsGrid">
+          {posts.map((p) => (
+            <article class="journalEntryCard">
+              <div class="journalEntryMeta">
+                {p.date ? <span class="journalEntryDate">{fmt(p.date)}</span> : null}
+              </div>
+              <h3 class="journalEntryTitle">{p.title}</h3>
+              {p.summary ? <p class="journalEntrySummary">{p.summary}</p> : null}
+              <a class="journalReadMore" href={p.url}>Read →</a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="journalEmptyCard">
+          <h3>Nothing here yet</h3>
+          <p>
+            Once a post is published in the admin, it will show up here.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

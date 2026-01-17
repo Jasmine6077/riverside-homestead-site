@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "journal"
+    label: "Journal"
+    folder: "src/pages/journal"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }

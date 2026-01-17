@@ -1,50 +1,11 @@
 ---
-import "../styles/site.css";
-
-const { title = "Riverside Homestead" } = Astro.props;
+title: "A Quiet Beginning"
+date: 2026-01-17T12:00:00-05:00
+summary: "A small beginning, written with care."
+cover: ""
+layout: ../../layouts/BaseLayout.astro
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title}</title>
-</head>
+This is the first journal entry.
 
-<body>
-
-  <header class="siteHeader">
-    <div class="headerInner">
-
-      <a class="brand" href="/">
-        <img
-          src="/images/logo.png"
-          alt="Riverside Homestead logo"
-          class="brandLogo"
-        />
-
-        <div class="brandText">
-          <div class="brandTitle">Riverside Homestead</div>
-          <div class="brandSub">
-            Handmade goods, healing journeys, and a life rooted in intention.
-          </div>
-        </div>
-      </a>
-
-      <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/shop">Shop</a>
-        <a href="/journal">Journal</a>
-        <a href="/about">About</a>
-      </nav>
-
-    </div>
-  </header>
-
-  <main>
-    <slot />
-  </main>
-
-</body>
-</html>
+(You can delete this later.)
