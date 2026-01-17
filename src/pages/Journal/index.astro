@@ -1,13 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-// Grab all markdown posts in this folder (except index.astro)
 const posts = await Astro.glob("./*.md");
 
 const sorted = posts
   .map((p) => ({
     url: p.url,
     title: p.frontmatter.title ?? "Untitled",
+    dateRaw: p.frontmatter.date ?? "",
     date: p.frontmatter.date ? new Date(p.frontmatter.date) : null,
     summary: p.frontmatter.summary ?? "",
     tags: Array.isArray(p.frontmatter.tags) ? p.frontmatter.tags : [],
@@ -30,7 +30,7 @@ const fmt = (d) =>
       <h1 class="journalPageTitle">Journal</h1>
       <div class="journalPageDash" aria-hidden="true"></div>
       <p class="journalPageIntro">
-        A living space for updates, reflections, and little moments.
+        Notes, reflections, and little moments—rooted and real.
       </p>
     </div>
   </section>
@@ -60,37 +60,10 @@ const fmt = (d) =>
 
   <section class="journalFeed">
     <div class="container journalFeedInner">
-
-      <!-- Pinned cards -->
-      <div class="journalCardsGrid" id="journalGrid">
-        <article class="journalEntryCard journalCardFeatured" data-title="coming soon" data-summary="new entries appear here as they are added.">
-          <div class="journalEntryMeta"><span class="journalEntryDate">Updates</span></div>
-          <h3 class="journalEntryTitle">New entries will appear here</h3>
-          <p class="journalEntrySummary">
-            This journal is updated by Riverside Homestead — gentle notes, product updates, and little moments.
-          </p>
-          <div class="journalEntryActions">
-            <a class="journalReadMore" href="/shop">Browse the shop →</a>
-          </div>
-        </article>
-
-        <article class="journalEntryCard" data-title="instagram updates" data-summary="follow @riversidehomesteadmaine for quick updates.">
-          <div class="journalEntryMeta"><span class="journalEntryDate">Quick updates</span></div>
-          <h3 class="journalEntryTitle">See updates on Instagram</h3>
-          <p class="journalEntrySummary">
-            For behind-the-scenes moments, product drops, and day-to-day life, follow along on Instagram.
-          </p>
-          <div class="journalEntryActions">
-            <a class="btnGreen journalBtn" href="https://www.instagram.com/riversidehomesteadmaine/" target="_blank" rel="noopener noreferrer">
-              Visit @riversidehomesteadmaine
-            </a>
-          </div>
-        </article>
-
-        <!-- Auto-generated post cards -->
+      <div class="masonry" id="journalMasonry">
         {sorted.map((p) => (
           <article
-            class="journalEntryCard journalPostCard"
+            class="masonryItem journalEntryCard journalPostCard"
             data-date={p.date ? String(p.date.getTime()) : ""}
             data-title={p.title}
             data-summary={p.summary}
@@ -100,7 +73,7 @@ const fmt = (d) =>
             </div>
 
             <h3 class="journalEntryTitle">
-              <a href={p.url} class="journalCardTitleLink">{p.title}</a>
+              <a class="journalCardTitleLink" href={p.url}>{p.title}</a>
             </h3>
 
             {p.summary ? <p class="journalEntrySummary">{p.summary}</p> : null}
@@ -123,42 +96,42 @@ const fmt = (d) =>
   <script is:inline>
     const searchEl = document.getElementById("journalSearch");
     const sortEl = document.getElementById("journalSort");
-    const grid = document.getElementById("journalGrid");
+    const wrap = document.getElementById("journalMasonry");
     const empty = document.getElementById("journalEmpty");
 
-    const cards = Array.from(grid.querySelectorAll(".journalEntryCard"));
+    const cards = Array.from(wrap.querySelectorAll(".journalEntryCard"));
 
-    function getText(card) {
+    function textOf(card){
       const t = (card.getAttribute("data-title") || "").toLowerCase();
       const s = (card.getAttribute("data-summary") || "").toLowerCase();
       const inner = (card.textContent || "").toLowerCase();
       return (t + " " + s + " " + inner).trim();
     }
 
-    function sortCards() {
-      const featured = cards.filter(c => c.classList.contains("journalCardFeatured"));
-      const pinned = cards.filter(c => !c.classList.contains("journalPostCard") && !c.classList.contains("journalCardFeatured"));
-      const posts = cards.filter(c => c.classList.contains("journalPostCard"));
-
+    function sortCards(){
       const dir = sortEl.value === "oldest" ? 1 : -1;
-      posts.sort((a, b) => {
+      const visible = cards.filter(c => !c.hidden);
+
+      visible.sort((a,b) => {
         const ad = Number(a.getAttribute("data-date") || 0);
         const bd = Number(b.getAttribute("data-date") || 0);
         return (ad - bd) * dir;
       });
 
-      for (const c of [...featured, ...pinned, ...posts]) grid.appendChild(c);
+      for(const c of visible) wrap.appendChild(c);
     }
 
-    function apply() {
+    function apply(){
       const q = (searchEl.value || "").trim().toLowerCase();
-      let visible = 0;
-      for (const card of cards) {
-        const match = !q || getText(card).includes(q);
+      let visibleCount = 0;
+
+      for(const card of cards){
+        const match = !q || textOf(card).includes(q);
         card.hidden = !match;
-        if (match) visible++;
+        if(match) visibleCount++;
       }
-      empty.hidden = visible !== 0;
+
+      empty.hidden = visibleCount !== 0;
       sortCards();
     }
 
