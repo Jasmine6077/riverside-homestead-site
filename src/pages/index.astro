@@ -3,24 +3,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Riverside Homestead">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="heroOverlay"></div>
+ <section class="hero">
+  <img class="heroImage" src="/images/hero.png" alt="" loading="eager" />
 
-    <div class="heroInner">
-  <div class="heroTextPanel">
-    <h1 class="heroTitle">Riverside Homestead</h1>
-    <p class="heroSub">Handmade goods, healing journeys, and a life rooted in intention.</p>
-  </div>
-  ...
-</div>
+  <div class="heroOverlay" aria-hidden="true"></div>
 
-      <div class="heroButtons">
-        <a class="btnBrown" href="/shop">Shop Handmade</a>
-        <a class="btnGreen" href="/journal">Read the Journal</a>
-      </div>
+  <div class="heroInner">
+    <h1 class="heroTitle">Riverside<br />Homestead</h1>
+
+    <p class="heroTagline">
+      Handmade goods, healing journeys, and a life rooted in intention.
+    </p>
+
+    <div class="heroButtons">
+      <a class="heroBtn heroBtnBrown" href="/shop">Shop Handmade</a>
+      <a class="heroBtn heroBtnGreen" href="/journal">Read the Journal</a>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- WELCOME -->
   <section class="welcome">
