@@ -1806,101 +1806,43 @@ a, button{
     width: min(820px, calc(100% - 2rem));
   }
 }
-/* =========================
-   MOBILE HEADER FIX
-   ========================= */
-
-@media (max-width: 900px){
-  .siteHeader{
-    padding: .8rem 0;
-  }
-
-  .headerInner{
-    width: calc(100% - 2rem);
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .6rem;
-  }
-
-  .brand{
-    display: flex;
-    align-items: center;
-    gap: .7rem;
-    text-align: center;
-  }
-
-  .brandLogo{
-    height: 48px;
-  }
-
-  .brandTitle{
-    font-size: 1.15rem;
-  }
-
-  .brandSub{
-    font-size: .9rem;
-    max-width: 38ch;
-    margin: 0 auto;
-  }
-
-  .nav{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: .4rem .9rem;
-    width: 100%;
-  }
-
-  .nav a{
-    font-size: .95rem;
-    white-space: nowrap;
-  }
-}
-
-/* Small phones */
-@media (max-width: 480px){
-  .brandSub{
-    display: none;
-  }
-
-  .nav a{
-    font-size: .9rem;
-  }
-}
 /* ===== Mobile Header Fix ===== */
 @media (max-width: 768px){
 
   .siteHeader{
-    padding: .6rem 0;
+    padding: .8rem 0 1rem;
   }
 
   .headerInner{
     flex-direction: column;
     align-items: center;
-    gap: .6rem;
+    gap: .5rem;
+    text-align: center;
   }
 
   .brand{
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    gap: .6rem;
+    gap: .35rem;
   }
 
   .brandLogo{
-    width: 42px;
+    width: 48px;
     height: auto;
   }
 
   .brandTitle{
-    font-size: 1.25rem;
-    line-height: 1.2;
+    font-size: 1.4rem;
+    line-height: 1.25;
   }
 
   .brandSub{
-    display: none; /* hides tagline on mobile */
+    display: block;
+    font-size: .85rem;
+    line-height: 1.5;
+    max-width: 30ch;
+    color: rgba(58,83,63,.75);
+    margin-top: .15rem;
   }
 
   .nav{
