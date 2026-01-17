@@ -1,47 +1,141 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-// however you're loading posts:
-import { getCollection } from "astro:content";
-const posts = await getCollection("journal");
+// Grab all markdown posts in this same folder (src/pages/journal/*.md)
+const modules = import.meta.glob("./*.md", { eager: true });
+
+// Turn them into a clean list
+let posts = Object.entries(modules)
+  .filter(([path]) => !path.endsWith("/index.astro"))
+  .map(([path, mod]) => {
+    const slug = path.split("/").pop()?.replace(".md", "") || "post";
+    const fm = (mod).frontmatter ?? {};
+    const title = fm.title ?? slug.replace(/-/g, " ");
+    const date = fm.date ?? ""; // optional
+    const summary = fm.summary ?? "";
+    const url = (mod).url ?? `/journal/${slug}`; // Astro gives url for md pages
+    return { slug, title, date, summary, url };
+  });
+
+// Sort newest first if dates exist
+posts.sort((a, b) => {
+  const da = a.date ? new Date(a.date).getTime() : 0;
+  const db = b.date ? new Date(b.date).getTime() : 0;
+  return db - da;
+});
 ---
 
-<BaseLayout title="Journal">
+<BaseLayout title="Journal | Riverside Homestead">
+  <div class="journalPage">
+    <header class="journalHeader">
+      <div class="journalHeaderInner">
+        <h1 class="journalTitle">Journal</h1>
+        <p class="journalLead">
+          Soft updates, little moments, and the quiet work of becoming.
+        </p>
 
-  <!-- Blog posts FIRST -->
-  <section class="journalPosts">
+        <div class="journalControls">
+          <label class="journalSearch">
+            <span class="srOnly">Search entries</span>
+            <input id="journalSearch" type="search" placeholder="Search entries…" />
+          </label>
 
-    <h1 class="journalTitle">From the Journal</h1>
+          <label class="journalSort">
+            <span class="srOnly">Sort</span>
+            <select id="journalSort">
+              <option value="new">Newest first</option>
+              <option value="old">Oldest first</option>
+              <option value="az">A → Z</option>
+              <option value="za">Z → A</option>
+            </select>
+          </label>
+        </div>
 
-    {posts.map(post => (
-      <article class="journalPostCard">
-        <h2>
-          <a href={`/journal/${post.slug}/`}>{post.data.title}</a>
-        </h2>
-        <p>{post.data.description}</p>
-      </article>
-    ))}
+        <p class="journalFeaturedLine">
+          <strong>Hello from Jasmine 🌿</strong>
+        </p>
+      </div>
+    </header>
 
-  </section>
+    <section class="journalMasonryWrap">
+      <div id="journalGrid" class="journalMasonry" data-count={posts.length}>
+        {posts.length > 0 ? (
+          posts.map((p) => (
+            <article
+              class="journalCard"
+              data-title={p.title.toLowerCase()}
+              data-summary={(p.summary || "").toLowerCase()}
+              data-date={p.date || ""}
+            >
+              <a class="journalCardInner" href={p.url}>
+                <div class="journalMeta">
+                  {p.date ? <span class="journalDate">{p.date}</span> : <span class="journalDate journalDateGhost">—</span>}
+                </div>
 
-  <!-- Then the cards -->
-  <section class="journalExtras">
+                <h2 class="journalCardTitle">{p.title}</h2>
 
-    <div class="journalCard">
-      <h3>Coming Soon</h3>
-      <p>More reflections, stories, and gentle thoughts are on their way.</p>
-    </div>
+                {p.summary ? (
+                  <p class="journalCardSummary">{p.summary}</p>
+                ) : (
+                  <p class="journalCardSummary journalCardSummaryGhost">
+                    Tap to read.
+                  </p>
+                )}
 
-    <div class="journalCard">
-      <h3>Follow Along</h3>
-      <p>
-        See updates on Instagram<br/>
-        <a href="https://instagram.com/riversidehomesteadmaine" target="_blank">
-          @riversidehomesteadmaine
-        </a>
-      </p>
-    </div>
+                <span class="journalReadMore">Read →</span>
+              </a>
+            </article>
+          ))
+        ) : (
+          <div class="journalEmpty">
+            <h2>Nothing here yet</h2>
+            <p>
+              Add a markdown file in <code>src/pages/journal/</code> and it’ll show up here.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
 
-  </section>
+  <script is:inline>
+    const input = document.getElementById("journalSearch");
+    const sort = document.getElementById("journalSort");
+    const grid = document.getElementById("journalGrid");
 
+    function apply() {
+      const q = (input.value || "").trim().toLowerCase();
+      const cards = Array.from(grid.querySelectorAll(".journalCard"));
+
+      // filter
+      cards.forEach((c) => {
+        const t = c.dataset.title || "";
+        const s = c.dataset.summary || "";
+        const show = !q || t.includes(q) || s.includes(q);
+        c.style.display = show ? "" : "none";
+      });
+
+      // sort visible cards only
+      const visible = cards.filter((c) => c.style.display !== "none");
+      const mode = sort.value;
+
+      visible.sort((a, b) => {
+        const at = (a.querySelector(".journalCardTitle")?.textContent || "").toLowerCase();
+        const bt = (b.querySelector(".journalCardTitle")?.textContent || "").toLowerCase();
+        const ad = a.dataset.date ? Date.parse(a.dataset.date) : 0;
+        const bd = b.dataset.date ? Date.parse(b.dataset.date) : 0;
+
+        if (mode === "old") return ad - bd;
+        if (mode === "az") return at.localeCompare(bt);
+        if (mode === "za") return bt.localeCompare(at);
+        return bd - ad; // "new"
+      });
+
+      // re-append in new order
+      visible.forEach((c) => grid.appendChild(c));
+    }
+
+    input?.addEventListener("input", apply);
+    sort?.addEventListener("change", apply);
+  </script>
 </BaseLayout>
