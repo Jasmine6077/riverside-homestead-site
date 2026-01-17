@@ -2418,3 +2418,43 @@ a, button{
   .postLead{ text-align: left; }
   .postLead::after{ margin-left: 0; }
 }
+.journalPosts{
+  margin-bottom: 4rem;
+}
+
+.journalPostCard{
+  background: rgba(247,243,236,.92);
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 28px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 18px 36px rgba(0,0,0,.12);
+}
+
+.journalPostCard h2{
+  font-family: "Playfair Display", serif;
+  color: var(--deepGreen);
+  margin: 0 0 .6rem;
+}
+
+.journalPostCard a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.journalPostCard p{
+  color: rgba(122,86,62,.85);
+  line-height: 1.8;
+}
+
+.journalExtras{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2rem;
+}
+
+@media(max-width:700px){
+  .journalExtras{
+    grid-template-columns: 1fr;
+  }
+}

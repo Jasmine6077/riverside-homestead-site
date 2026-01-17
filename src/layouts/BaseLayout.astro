@@ -1,56 +1,47 @@
 ---
-import "../styles/site.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const { title = "Riverside Homestead" } = Astro.props;
+// however you're loading posts:
+import { getCollection } from "astro:content";
+const posts = await getCollection("journal");
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title}</title>
-</head>
+<BaseLayout title="Journal">
 
-<body>
-  <header class="siteHeader">
-    <div class="headerInner">
+  <!-- Blog posts FIRST -->
+  <section class="journalPosts">
 
-      <a class="brand" href="/">
-        <img
-          src="/images/logo.png"
-          alt="Riverside Homestead logo"
-          class="brandLogo"
-        />
+    <h1 class="journalTitle">From the Journal</h1>
 
-        <div class="brandText">
-          <div class="brandTitle">Riverside Homestead</div>
-          <div class="brandSub">
-            Handmade goods, healing journeys, and a life rooted in intention.
-          </div>
-        </div>
-      </a>
-
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="/" class="navLink">Home</a>
-        <a href="/shop" class="navLink">Shop</a>
-        <a href="/journal" class="navLink">Journal</a>
-        <a href="/about" class="navLink">About</a>
-      </nav>
-
-    </div>
-  </header>
-
-  <main class="siteMain">
-    <div class="pageContent">
-      <article class="postPaper">
-        <div class="postTopRow">
-          <a class="backToJournal" href="/journal">← Back to Journal</a>
-        </div>
-
-        <slot />
+    {posts.map(post => (
+      <article class="journalPostCard">
+        <h2>
+          <a href={`/journal/${post.slug}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.description}</p>
       </article>
+    ))}
+
+  </section>
+
+  <!-- Then the cards -->
+  <section class="journalExtras">
+
+    <div class="journalCard">
+      <h3>Coming Soon</h3>
+      <p>More reflections, stories, and gentle thoughts are on their way.</p>
     </div>
-  </main>
-</body>
-</html>
+
+    <div class="journalCard">
+      <h3>Follow Along</h3>
+      <p>
+        See updates on Instagram<br/>
+        <a href="https://instagram.com/riversidehomesteadmaine" target="_blank">
+          @riversidehomesteadmaine
+        </a>
+      </p>
+    </div>
+
+  </section>
+
+</BaseLayout>
