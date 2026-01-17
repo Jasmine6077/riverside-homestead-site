@@ -15,12 +15,14 @@ const { title = "Riverside Homestead" } = Astro.props;
 <body>
   <header class="siteHeader">
     <div class="headerInner">
+
       <a class="brand" href="/">
         <img
           src="/images/logo.png"
           alt="Riverside Homestead logo"
           class="brandLogo"
         />
+
         <div class="brandText">
           <div class="brandTitle">Riverside Homestead</div>
           <div class="brandSub">
@@ -29,16 +31,17 @@ const { title = "Riverside Homestead" } = Astro.props;
         </div>
       </a>
 
-      <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/shop">Shop</a>
-        <a href="/journal">Journal</a>
-        <a href="/about">About</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/" class="navLink">Home</a>
+        <a href="/shop" class="navLink">Shop</a>
+        <a href="/journal" class="navLink">Journal</a>
+        <a href="/about" class="navLink">About</a>
       </nav>
+
     </div>
   </header>
 
-  <main>
+  <main class="siteMain">
     <slot />
   </main>
 </body>
