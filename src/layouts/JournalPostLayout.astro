@@ -1,0 +1,44 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const {
+  title = "Journal Entry",
+  date = "",
+  summary = "",
+} = Astro.props;
+
+const prettyDate =
+  date
+    ? new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+    : "";
+---
+
+<BaseLayout title={`${title} | Riverside Homestead`}>
+  <article class="journalPostWrap">
+    <div class="journalPostTop">
+      <a class="journalPostBack" href="/journal">← Back to Journal</a>
+    </div>
+
+    <header class="journalPostHeader">
+      <p class="journalPostKicker">Riverside Homestead Journal</p>
+      <h1 class="journalPostTitle">{title}</h1>
+
+      {(prettyDate || summary) && (
+        <div class="journalPostMeta">
+          {prettyDate && <time class="journalPostDate" datetime={date}>{prettyDate}</time>}
+          {summary && <p class="journalPostSummary">{summary}</p>}
+        </div>
+      )}
+    </header>
+
+    <div class="journalPostCard">
+      <div class="journalPostContent">
+        <slot />
+      </div>
+    </div>
+
+    <div class="journalPostBottom">
+      <a class="journalPostBack journalPostBackBottom" href="/journal">← Back to Journal</a>
+    </div>
+  </article>
+</BaseLayout>

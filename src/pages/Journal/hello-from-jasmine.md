@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/BaseLayout.astro
+layout: ../../layouts/JournalPostLayout.astro
 title: "Hello from Jasmine 🌿"
 date: "2026-01-17"
 summary: "A note from the girl behind the website — and what this space is meant to hold."
