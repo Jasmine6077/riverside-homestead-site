@@ -6,7 +6,8 @@ summary: "A note from the girl behind the website — and what this space is mea
 tags: ["welcome", "about", "rooted living"]
 ---
 <div class="postMetaLine">
-  <span>January 17, 2026</span><span class="postMetaDot"></span><span>Written by Jasmine</span>
+  <span>January 17, 2026</span>
+  <span class="postMetaDot"></span><span>Written by Jasmine</span>
 </div>
 
 <p class="postLead"><strong>Hi, I’m Jasmine — the one behind the screen, quietly shaping this space with love, patience, and a lot of late nights.</strong></p>
